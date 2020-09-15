@@ -1,0 +1,38 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - uses: goanpeca/setup-miniconda@v1
+      with:
+        activate-environment: synthia-test
+        environment-file: environment-test.yml
+
+    # Install all dev dependencies to build notebooks etc.
+    - uses: goanpeca/setup-miniconda@v1
+      with:
+        activate-environment: synthia
+        environment-file: environment.yml
+
+    - name: Install Synthia (dev env)
+      # 'shell' required to activate environment.
+      # See https://github.com/goanpeca/setup-miniconda#important.
+      shell: bash -l {0}
+      run: pip install .
+
+    - name: Build docs
+      shell: bash -l {0}
+      run: sphinx-build -v -b html docs/ docs/_build/fcQP3CXVFuXRU8pz
+
+    - name: Publish docs
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: docs/_build

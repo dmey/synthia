@@ -1,0 +1,41 @@
+name: synthia
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+  - pytest
+  - numpy
+  - scipy
+  - pandas
+  - xarray
+  - netcdf4
+  - dask
+  - distributed
+  - bottleneck
+  - scikit-learn
+  - statsmodels
+  - matplotlib
+  - seaborn
+  - jupyter
+  - pip
+  - setuptools
+  - pybind11
+  - pdoc3
+  - sphinx
+  - sphinx-autobuild
+  - sphinx_rtd_theme
+  - m2r
+  - nbsphinx
+  - recommonmark
+  - gdown
+  - sphinxcontrib-bibtex
+  - sphinx-copybutton
+  - numba
+  - scikit-video
+  - scikit-image
+  - tensorflow-gpu
+  - copulae
+  - pip:
+    - psychrolib
+    - pyvinecopulib

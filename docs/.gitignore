@@ -1,0 +1,8 @@
+# We create this from LICENSE.txt at root.
+contributing.md
+develop.md
+license.md
+overview.md
+
+_build/
+data/

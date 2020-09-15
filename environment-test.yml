@@ -1,0 +1,6 @@
+name: synthia-test
+channels:
+  - defaults
+dependencies:
+  - python=3.7 # when changing this, also change setup.py
+  - pytest
