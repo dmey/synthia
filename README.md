@@ -13,7 +13,7 @@ Synthia is tool for generating (continuous) synthetic data for regression proble
 
 ## Documentation
 
-For installation instructions, tutorials and general information, see https://dmey.github.io/synthia.
+For installation instructions, tutorials and general information, see https://dmey.github.io/synthia/fcQP3CXVFuXRU8pz/.
 
 ## How to cite
 
