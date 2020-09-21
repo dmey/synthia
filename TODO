@@ -1,0 +1,7 @@
+- [ ] DOCS: review/background page
+- [ ] DOCS: copula info page
+- [ ] DOCS: fpca info page
+- [ ] DOCS: examples
+- [ ] CODE/API: missing docstrings
+- [ ] SUMMARY PAPER: create draft
+- [ ] TESTS: use docttests (https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html)?
