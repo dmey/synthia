@@ -1,6 +1,5 @@
 from .copulas.gaussian import GaussianCopula
 from .copulas.vine import VineCopula
-from .copulas.copulae import CopulaeCopula
 from .generators.copula import CopulaDataGenerator
 from .generators.fpca import FPCADataGenerator
 from .generators.mixed_fpca import MixedFPCADataGenerator

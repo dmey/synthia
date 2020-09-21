@@ -35,7 +35,6 @@ dependencies:
   - scikit-video
   - scikit-image
   - tensorflow-gpu
-  - copulae
   - pip:
     - psychrolib
     - pyvinecopulib
