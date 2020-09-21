@@ -42,8 +42,8 @@ def measure(msg: Optional[str]=None, enabled=True):
 
 class StackInfoVar(NamedTuple):
     name: str
-    dims: Tuple[str]
-    shape: Tuple[int]
+    dims: Tuple[str, ...]
+    shape: Tuple[int, ...]
 
 StackInfo = List[StackInfoVar]
 
