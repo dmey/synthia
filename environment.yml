@@ -25,9 +25,9 @@ dependencies:
   - sphinx
   - sphinx-autobuild
   - sphinx_rtd_theme
+  - myst-parser
   - m2r
   - nbsphinx
-  - recommonmark
   - gdown
   - sphinxcontrib-bibtex
   - sphinx-copybutton

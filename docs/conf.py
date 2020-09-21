@@ -52,9 +52,9 @@ extensions = [
     "IPython.sphinxext.ipython_directive",
     "IPython.sphinxext.ipython_console_highlighting",
     "nbsphinx",
-	"recommonmark",
     'sphinxcontrib.bibtex',
-    'sphinx_copybutton'
+    'sphinx_copybutton',
+    "myst_parser"
 ]
 
 # Autodoc settings
@@ -71,12 +71,6 @@ napoleon_use_param = False
 
 copybutton_prompt_text = ">>> "
 
-# For recommonmark
-source_suffix = {
-    '.rst': 'restructuredtext',
-    '.txt': 'restructuredtext',
-    '.md': 'markdown',
-}
 
 nbsphinx_execute = 'always'
 # Some notebooks take longer than the default 30 s limit.
