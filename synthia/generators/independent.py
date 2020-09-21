@@ -16,8 +16,8 @@ class IndependentDataGenerator:
 
         Args:
             data (ndarray or DataArray or Dataset): The input data, either a
-                2D array of shape (sample, feature) or a dataset where all
-                variables have the shape (sample[, ...]).
+                1D array, a 2D array of shape (sample, feature)
+                or a dataset where all variables have the shape (sample[, ...]).
 
             parameterize_by (Parameterizer or mapping, optional): The
                 following forms are valid:
@@ -30,7 +30,7 @@ class IndependentDataGenerator:
             None
         """
 
-        data, self.data_info = to_feature_array(data)
+        data, self.data_info = to_feature_array(data, allow_1d=True)
         
         self.dtype = data.dtype
         self.n_features = data.shape[1]

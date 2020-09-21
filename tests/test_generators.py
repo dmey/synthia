@@ -35,6 +35,19 @@ def test_independent_dataset_generation():
     assert synthetic_data['a'].shape == (n_synthetic_samples, n_features[0])
     assert synthetic_data['b'].shape == (n_synthetic_samples, n_features[1])
 
+def test_independent_1d_feature_generation():
+    n_samples = 200
+    input_data = np.random.normal(size=n_samples)
+
+    generator = syn.IndependentDataGenerator()
+
+    generator.fit(input_data)
+
+    n_synthetic_samples = 50
+    synthetic_data = generator.generate(n_samples=n_synthetic_samples)
+
+    assert synthetic_data.shape == (n_synthetic_samples,)
+
 def test_independent_feature_generation_with_distribution():
     n_samples = 20
     n_features = 2

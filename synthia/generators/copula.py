@@ -72,7 +72,7 @@ class CopulaDataGenerator:
             print(msg, flush=True)
 
     def fit(self, data: Union[np.ndarray, xr.DataArray, xr.Dataset],
-            copula: Copula, qrng=False,
+            copula: Copula,
             parameterize_by: Optional[Union[Parameterizer, Dict[int, Parameterizer], Dict[str, Parameterizer]]]=None):
         """tbd
 
