@@ -14,6 +14,23 @@ jobs:
         activate-environment: synthia-test
         environment-file: environment-test.yml
 
+    - name: Install Synthia (test env)
+      # 'shell' required to activate environment.
+      # See https://github.com/goanpeca/setup-miniconda#important.
+      shell: bash -l {0}
+      run: pip install .
+
+    - name: Run tests
+      shell: bash -l {0}
+      run: pytest tests/
+
+    - name: Run tests with pyvinecopulib
+      shell: bash -l {0}
+      run: |
+        set -ex
+        pip install pyvinecopulib
+        pytest tests/
+
     # Install all dev dependencies to build notebooks etc.
     - uses: goanpeca/setup-miniconda@v1
       with:
