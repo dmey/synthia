@@ -1,10 +1,11 @@
 import time
 import numpy as np
-import pyvinecopulib as pv
 
 import synthia as syn
 
 def main():
+    import pyvinecopulib as pv
+
     n_samples = 100
     n_features = 50
     n_synthetic_samples = 500
