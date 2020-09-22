@@ -2,7 +2,7 @@
 
 TODO: some background statistical information/review of PDF/CDF and other terms used in `copula.md` and `fpca.md`?
 
-Note: I render files with the [MyST parser](https://myst-parser.readthedocs.io/en/latest/examples/wealth_dynamics_md.html) as it makes it easier to use standard LaTeX syntax. E.g. (from [their example](https://myst-parser.readthedocs.io/en/latest/examples/wealth_dynamics_md.html) -- note that [labels are not aligned correctly in the readthedocs theme](https://github.com/readthedocs/sphinx_rtd_theme/pull/383) but we can fix this later/use another theme in the case all eqs needs to be labelled):
+Note: I render files with the [MyST parser](https://myst-parser.readthedocs.io/en/latest/examples/wealth_dynamics_md.html) as it makes it easier to use standard LaTeX syntax.
 
 
 ## Example: Citations/Reference
@@ -20,6 +20,8 @@ Having discussed inequality measures, let us now turn to wealth
 dynamics.
 
 The model we will study is
+
+**NOTE**: eq without label
 
 $$
 w_{t+1} = (1 + r_{t+1}) s(w_t) + y_{t+1}
@@ -49,6 +51,7 @@ $\mathbb R^3$.
 
 (md:sav_ah)=
 
+**NOTE**: eq with label
 ```{math}
 ---
 label: md:sav_ah
