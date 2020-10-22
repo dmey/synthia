@@ -6,7 +6,43 @@ from ..parameterizers.parameterizer import Parameterizer
 from ..generators.copula import CopulaDataGenerator
 from ..generators.fpca import FPCADataGenerator
 
+# Thomas: We can combine this class and FPCADataGenerator into one. If we 
+# choose the independence copula (Gaussian with identity matrix for 
+# correlation) as default copula here, it will be equivalent to 
+# FPCADataGenerator
+
 class MixedFPCADataGenerator:
+    """Estimates the characteristics of a set of multi-feature samples and
+    generates synthetic samples with the same or modified characteristics,
+    based on a combination of (functional) principal component analysis and 
+    copula models.
+
+    The input can be a numpy array or xarray DataArray of shape (sample,
+    feature), or an xarray Dataset where all variables have shapes like (sample
+    [, ...]). For Datasets, all extra dimensions except the first are treated
+    as features.
+
+    The output is in the same form as the input.
+
+    Algorithm:
+
+    1. Fitting phase
+      a) Compute principal component vectors and, for every input sample,
+        corresponding principal component scores.
+
+      b) Fit a marginal distribution model for each score (using all samples).
+
+      c) Fit a copula model for the dependence between scores.
+
+    2. Generation phase
+      a)
+
+      a) Generate new samples of principal component scores from the fitted
+        distributions.
+
+      b) Transform scores into synthetic data on the feature scale by
+        multiplying with principal component vectors.
+    """
     def fit(self, data: xr.Dataset, 
             n_fpca_components: int,
             copula: Copula,
@@ -50,7 +86,7 @@ class MixedFPCADataGenerator:
         self.copula_generator.fit(copula_input, copula, parameterize_by=parameterize_by)
 
     def generate(self, n_samples: int) -> xr.Dataset:
-        """tbd
+        """Generate synthetic data from the model.
 
         Args:
             n_samples (int): Number of samples to generate.
