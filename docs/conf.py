@@ -37,9 +37,9 @@ def copy_overview(f_read: Path, f_write: Path, rebuild=False) -> None:
 
 copy_overview(PROJ_DIR / 'README.md', PROJ_DIR / 'docs' / 'overview.md', True)
 
-project = 'Synthia'
-copyright = ' '
-author = ' '
+project = 'synthia'
+copyright = '2020 D. Meyer and T. Nagler'
+author = 'D. Meyer and T. Nagler'
 release = '0.1.0'
 
 extensions = [
