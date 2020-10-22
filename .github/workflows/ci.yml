@@ -45,7 +45,7 @@ jobs:
 
     - name: Build docs
       shell: bash -l {0}
-      run: sphinx-build -v -b html docs/ docs/_build/fcQP3CXVFuXRU8pz
+      run: sphinx-build -v -b html docs/ docs/_build
 
     - name: Publish docs
       if: github.event_name == 'push' && github.ref == 'refs/heads/master'
