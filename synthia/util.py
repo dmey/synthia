@@ -1,3 +1,6 @@
+# Synthia (https://github.com/dmey/synthia).
+# Copyright (c) 2020 D. Meyer and T. Nagler. Licensed under the MIT License.
+
 from typing import Tuple, NamedTuple, List, Dict, Optional, Union, Any
 import time
 import operator
