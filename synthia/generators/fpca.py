@@ -6,9 +6,37 @@ from ..parameterizers.quantile import QuantileParameterizer
 from ..util import to_feature_array, from_feature_array, per_feature
 
 class FPCADataGenerator:
+    """Estimates the characteristics of a set of multi-feature samples and 
+    generates synthetic samples with the same or modified characteristics,
+    based on (functional) principal component analysis.
+
+    The input can be a numpy array or xarray DataArray of shape (sample, 
+    feature), or an xarray Dataset where all variables have shapes like (sample
+    [, ...]). For Datasets, all extra dimensions except the first are treated 
+    as features.
+
+    The output is in the same form as the input.
+
+    Algorithm:
+
+    1. Fitting phase
+      a) Compute principal component vectors and, for every input sample,
+        corresponding principal component scores.
+
+      b) Fit a distribution model for each score (using all samples).
+
+    2. Generation phase
+      a) Generate new samples of principal component scores from the fitted 
+        distributions.
+
+      b) Transform scores into synthetic data on the feature scale by 
+        multiplying with principal component vectors.
+    """
+    
     def fit(self, data: Union[np.ndarray, xr.DataArray, xr.Dataset],
             n_fpca_components: int, n_samples_reduced: Optional[int]=None) -> None:
-        """tbd
+        """Find the first `n_fpca_components` principal components vectors and 
+        fit marginal distributions to the corresponding scores.
 
         Args:
             data (ndarray or DataArray or Dataset): The input data, either a
@@ -16,7 +44,7 @@ class FPCADataGenerator:
                 variables have the shape (sample[, ...]).
 
             n_fpca_components (int): Reduces the number of features
-            
+
             n_samples_reduced (int, optional): Reduces the number of samples
 
         Returns:
@@ -68,7 +96,7 @@ class FPCADataGenerator:
     def generate(self, n_samples: int,
                  scaling_factor: Optional[float]=None) \
                  -> Union[np.ndarray, xr.DataArray, xr.Dataset]:
-        """tbd
+        """Generate synthetic data from the model.
 
         Args:
             n_samples (int): Number of samples to generate.
