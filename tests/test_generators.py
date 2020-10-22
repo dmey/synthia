@@ -114,28 +114,6 @@ def test_fpca_dataset_generation():
     assert synthetic_data['a'].shape == (n_synthetic_samples, n_features[0])
     assert synthetic_data['b'].shape == (n_synthetic_samples, n_features[1])
 
-
-def test_mixed_fpca_dataset_generation():
-    n_samples = 200
-    n_features = [10]
-    input_data = xr.Dataset({
-        'a': (('sample', 'foo'), np.random.normal(size=(n_samples, n_features[0]))),
-        'b': (('sample',), np.random.normal(size=(n_samples,)))
-    })
-
-    generator = syn.MixedFPCADataGenerator()
-
-    generator.fit(input_data, n_fpca_components=5, copula=syn.GaussianCopula())
-
-    pickled = pickle.dumps(generator)
-    generator = pickle.loads(pickled)
-
-    n_synthetic_samples = 50
-    synthetic_data = generator.generate(n_samples=n_synthetic_samples)
-
-    assert synthetic_data['a'].shape == (n_synthetic_samples, n_features[0])
-    assert synthetic_data['b'].shape == (n_synthetic_samples,)
-
 def test_gaussian_copula_feature_generation():
     n_samples = 200
     n_features = 100

@@ -24,9 +24,6 @@ Data generators
    :members:
    :undoc-members:
 
-.. autoclass:: synthia.MixedFPCADataGenerator
-   :members:
-   :undoc-members:
 
 Copulas
 =======
