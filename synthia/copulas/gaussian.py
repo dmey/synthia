@@ -33,11 +33,11 @@ class GaussianCopula(Copula):
         # the normal ppf. (This is not the same as the correlation 
         # between ranks.) The reason is that the Gaussian copula is derived 
         # from a multivariate Gaussian distribution, where all margins are 
-        # # Gaussian.
+        # Gaussian.
         ppf = scipy.stats.norm.ppf(rank_standardized)
         self.corr = compute_norm_corr(ppf)
 
-    def generate(self, n_samples: int, qrng=False) -> np.ndarray:
+    def generate(self, n_samples: int, qrng=False, num_threads=1) -> np.ndarray:
         """Generate n_samples gaussian copula entries.
 
         Args:
