@@ -1,11 +1,9 @@
 # Copulas
 
-TODO: background information about copulas. For general/maths syntax see [`review.md`](review.md).
 
+## What copulas are
 
-## Definition
-
-Copulas are models for the dependence between random quantities $Z_1, \dots, Z_d$. The idea is to 
+[Copulas](https://en.wikipedia.org/wiki/Copula_(probability_theory) are probabilistic models for the dependence between random quantities $Z_1, \dots, Z_d$. The idea is to 
 decouple the individual (or marginal) behavior of the quantities from the dependence. 
 The key result, Sklar’s theorem  {cite}`sklar1959`, states that for any joint distribution $F$ on $d$ variables can be written as 
 
@@ -25,7 +23,7 @@ where $F$ is a multivariate Gaussian distribution and $F_1, \dots, F_d$ the corr
 
 The same principle applies to other multivariate distributions and many copula models have been derived, most prominently the Student t copula and Archimedean families. A comprehensive list can be found in {cite}`joe2014dependence`. When there are more than two variables ($d>2$) the types of dependence structures these models can generate is rather limited. For example, Gaussian and Student copulas only allow for symmetric dependencies. While Archimedean families allow for such asymmetries, they require all pairs of variables to have the same type and strength of dependence.
 
-Vine copula models ({cite}`aas2009pair`, {cite}`czado2019analyzing` are a popular solution to this issue. The idea is to build a large dependence model from only two-dimensional building blocks. We can explain this with a simple example with just three variables $Z_1, Z_2, Z_3$.
+[Vine copula models](https://en.wikipedia.org/wiki/Vine_copula) ({cite}`aas2009pair`, {cite}`czado2019analyzing` are a popular solution to this issue. The idea is to build a large dependence model from only two-dimensional building blocks. We can explain this with a simple example with just three variables $Z_1, Z_2, Z_3$.
 
 We model the dependence between $Z_1$ and $Z_2$ by a two-dimensional copula 
 $C_{1,2}$ and the dependence between $Z_2$ and $Z_3$ by another, possibly different, copula $C_{2,3}$. These two copulas already contain some information about the dependence between $Z_1$ and $Z_3$, the part of the dependence that is induced by $Z_2$. The missing piece is the dependence between $Z_1$ and $Z_3$ after the effect of $Z_2$ has been removed. Mathematically, this is the conditional dependence $Z_1$ and $Z_3$ given 
