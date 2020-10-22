@@ -10,9 +10,11 @@ from ..parameterizers.parameterizer import Parameterizer
 from ..util import to_feature_array, from_feature_array, per_feature
 
 class IndependentDataGenerator:
+    # Thomas: Probably this is useless, I'll only look at the documentation 
+    # when you convince me otherwise ;)
     def fit(self, data: Union[np.ndarray, xr.DataArray, xr.Dataset],
             parameterize_by: Optional[Union[Parameterizer, Dict[int, Parameterizer], Dict[str, Parameterizer]]]=None):
-        """tbd
+        """Fit marginal distributions for all features.
 
         Args:
             data (ndarray or DataArray or Dataset): The input data, either a
@@ -54,7 +56,7 @@ class IndependentDataGenerator:
                  uniformization_ratio: Union[float, Dict[int, float], Dict[str, float]] = 0,
                  stretch_factor: Union[float, Dict[int, float], Dict[str, float]] = 1) \
                  -> Union[np.ndarray, xr.DataArray, xr.Dataset]:
-        """tbd
+        """Generate synthetic data from the model.
 
         Args:
             n_samples (int): Number of samples to generate.
