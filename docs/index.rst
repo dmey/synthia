@@ -19,7 +19,6 @@ Getting Started
 Background
 ---------------------
 
-* :doc:`review`
 * :doc:`copula`
 * :doc:`fpca`
 
@@ -28,7 +27,6 @@ Background
    :hidden:
    :caption: Background
 
-   review
    copula
    fpca
 
