@@ -31,7 +31,7 @@ This allows us to represent the high-dimensional vector $X$  by only a few numbe
 
 ## PCA for synthetic data generation
 
-PCA can be used to generate synthetic data for the high-dimensional vector $X$. For every instance $X_i$ in the data set, we compute the principal component scores $a_{i, 1}, \dots, a_{i, K}$. We then fit a copula model to these scores. From this model, we generate synthetic scores $\tilde a_{1}, \dots, \tilde a_{K}$, and transform them into synthetic samples of $X$ via 
+PCA can be used to generate synthetic data for the high-dimensional vector $X$. For every instance $X_i$ in the data set, we compute the principal component scores $a_{i, 1}, \dots, a_{i, K}$. Because the principal components $v_1, \dots, v_K$ are orthogonal, the scores are necessarily uncorrelated and we will treat them as independent. For each score $a_{k}$, we then fit a model $F_k$ for the marginal distribution. From this distribution, we can synthetic scores $\tilde a_k$ and transform them into a synthetic sample of $X$ via 
 
 $$\tilde X = \mu + \sum_{k = 1}^K \tilde a_k v_{k}.$$
 
