@@ -22,7 +22,8 @@ under the side-constraint that $v_{k}$ is orthogonal to all previous principal c
 For a $d$-dimensional vector $X$, there are in total $d$ principal components to be found: $v^{1}, \dots, v_{d}$. The principal components form a basis of the space, i.e., every vector $X$ can be represented as 
 
 $$X = \mu + \sum_{k = 1}^d a_k v_{k},$$
-where $\mu$ is $E[X]$ and the coefficients $a_k = X'v_k$ are called *principal component scores*. When $d$ is very large, we can truncate the sum above at $K \ll d$$ terms. This gives an approximation 
+
+where $\mu$ is $E[X]$ and the coefficients $a_k = X'v_k$ are called *principal component scores*. When $d$ is very large, we can truncate the sum above at $K \ll d$ terms. This gives an approximation 
 
 $$X \approx \mu + \sum_{k = 1}^K a_k v_{k}.$$
 
