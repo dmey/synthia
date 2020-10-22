@@ -7,7 +7,7 @@
 
 ## Overview
 
-Synthia is tool for generating (continuos) multi-dimensional synthetic data generation in Python.
+Synthia is a tool for generating (continuous) multi-dimensional data in Python.
 
 
 ## Documentation
