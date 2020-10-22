@@ -12,10 +12,6 @@ documentation.
 Data generators
 ===============
 
-.. autoclass:: synthia.IndependentDataGenerator
-   :members:
-   :undoc-members:
-
 .. autoclass:: synthia.CopulaDataGenerator
    :members:
    :undoc-members:
