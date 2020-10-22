@@ -36,7 +36,3 @@ $Z_2$ and can be modeled by yet another two-dimensional copula
 $C_{1,3|2}$. The principle is easily extended to an arbitrary number of variables $Z_1, \dots, Z_d$. 
 
 Because all two-dimensional copulas can be specified independently, such models are extremely flexible and allow for highly heterogeneous dependence structures. Algorithms for simulation and selecting the right conditioning order and parametric families for each (conditional) pair are given in {cite}`dissmann2013`. Using parametric models for pair-wise dependencies remain a limiting factor, however. If necessary, it is also possible to use nonparametric models for the two-dimensional building blocks, see {cite}`Nagler2017`.
-
-## Copulas in Synthia
-
-.... mention the implemented models here or in the text above?
