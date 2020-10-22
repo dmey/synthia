@@ -24,7 +24,7 @@ class IndependenceCopula(Copula):
         """
         self.n_features = rank_standardized.shape[1]
 
-    def generate(self, n_samples: int, qrng=False) -> np.ndarray:
+    def generate(self, n_samples: int, qrng=False, num_threads=1) -> np.ndarray:
         """Generate n_samples of a vector of independent uniform random variables.
 
         Args:

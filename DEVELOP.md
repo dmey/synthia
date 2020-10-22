@@ -39,3 +39,9 @@ SKIP_NB=1 sphinx-build -v -b html docs/ docs/_build/
 Use [Google Style Python Docstrings](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/index.html#google-vs-numpy).
 
 Note that type hints are intentionally not rendered as some of them become too complex and are better described in prose, following xarray's style.
+
+## Testing
+
+```
+python -m pytest -s tests/
+```
