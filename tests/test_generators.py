@@ -1,3 +1,6 @@
+# Synthia (https://github.com/dmey/synthia).
+# Copyright (c) 2020 D. Meyer and T. Nagler. Licensed under the MIT License.
+
 from pathlib import Path
 import pickle
 
@@ -21,10 +24,11 @@ def test_independent_dataset_generation():
         'b': (('sample', 'bar'), np.random.normal(size=(n_samples, n_features[1])))
     })
 
-    generator = syn.IndependentDataGenerator()
+    generator = syn.CopulaDataGenerator()
 
     # TODO test all variants of `parameterize_by`
-    generator.fit(input_data, parameterize_by=syn.QuantileParameterizer(n_quantiles=100))
+    generator.fit(input_data, copula=syn.IndependenceCopula(),
+        parameterize_by=syn.QuantileParameterizer(n_quantiles=100))
 
     pickled = pickle.dumps(generator)
     generator = pickle.loads(pickled)
@@ -35,31 +39,19 @@ def test_independent_dataset_generation():
     assert synthetic_data['a'].shape == (n_synthetic_samples, n_features[0])
     assert synthetic_data['b'].shape == (n_synthetic_samples, n_features[1])
 
-def test_independent_1d_feature_generation():
-    n_samples = 200
-    input_data = np.random.normal(size=n_samples)
-
-    generator = syn.IndependentDataGenerator()
-
-    generator.fit(input_data)
-
-    n_synthetic_samples = 50
-    synthetic_data = generator.generate(n_samples=n_synthetic_samples)
-
-    assert synthetic_data.shape == (n_synthetic_samples,)
-
 def test_independent_feature_generation_with_distribution():
     n_samples = 20
     n_features = 2
     input_data = np.random.normal(size=(n_samples, n_features))
 
-    generator = syn.IndependentDataGenerator()
+    generator = syn.CopulaDataGenerator()
 
     dist_names = set(syn.DistributionParameterizer.get_dist_names())
     # Remove all very slow distributions
     dist_names -= set(['genexpon', 'levy_stable', 'recipinvgauss', 'vonmises', 'kstwo'])
 
-    generator.fit(input_data, parameterize_by=syn.DistributionParameterizer(dist_names, verbose=True))
+    generator.fit(input_data, copula=syn.IndependenceCopula(), 
+        parameterize_by=syn.DistributionParameterizer(dist_names, verbose=True))
 
     pickled = pickle.dumps(generator)
     generator = pickle.loads(pickled)
@@ -113,28 +105,6 @@ def test_fpca_dataset_generation():
 
     assert synthetic_data['a'].shape == (n_synthetic_samples, n_features[0])
     assert synthetic_data['b'].shape == (n_synthetic_samples, n_features[1])
-
-
-def test_mixed_fpca_dataset_generation():
-    n_samples = 200
-    n_features = [10]
-    input_data = xr.Dataset({
-        'a': (('sample', 'foo'), np.random.normal(size=(n_samples, n_features[0]))),
-        'b': (('sample',), np.random.normal(size=(n_samples,)))
-    })
-
-    generator = syn.MixedFPCADataGenerator()
-
-    generator.fit(input_data, n_fpca_components=5, copula=syn.GaussianCopula())
-
-    pickled = pickle.dumps(generator)
-    generator = pickle.loads(pickled)
-
-    n_synthetic_samples = 50
-    synthetic_data = generator.generate(n_samples=n_synthetic_samples)
-
-    assert synthetic_data['a'].shape == (n_synthetic_samples, n_features[0])
-    assert synthetic_data['b'].shape == (n_synthetic_samples,)
 
 def test_gaussian_copula_feature_generation():
     n_samples = 200

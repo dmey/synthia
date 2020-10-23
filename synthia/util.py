@@ -1,3 +1,6 @@
+# Synthia (https://github.com/dmey/synthia).
+# Copyright (c) 2020 D. Meyer and T. Nagler. Licensed under the MIT License.
+
 from typing import Tuple, NamedTuple, List, Dict, Optional, Union, Any
 import time
 import operator
@@ -95,7 +98,7 @@ def to_unstacked_dataset(arr: np.ndarray, stack_info: StackInfo) -> xr.Dataset:
     ds = xr.Dataset(unstacked)
     return ds
 
-def to_feature_array(data: Union[np.ndarray, xr.DataArray, xr.Dataset], allow_1d=False) -> Tuple[xr.DataArray, dict]:
+def to_feature_array(data: Union[np.ndarray, xr.DataArray, xr.Dataset]) -> Tuple[xr.DataArray, dict]:
     # TODO what about dtype?
     data_info = {}
     if isinstance(data, xr.Dataset):
@@ -111,10 +114,7 @@ def to_feature_array(data: Union[np.ndarray, xr.DataArray, xr.Dataset], allow_1d
                 attrs=data.attrs
             )
         data = xr.DataArray(data)
-        if allow_1d and data.ndim == 1:
-            data_info['is_1d'] = True
-            data = data.expand_dims(dim='__feature', axis=1)
-    assert data.ndim == 2, f'Input array must be {"1D/" if allow_1d else ""}2D, given: {data.ndim}D'
+    assert data.ndim == 2, f'Input array must be 2D, given: {data.ndim}D'
     data_info['n_features'] = data.shape[1]
     return data, data_info
 
@@ -122,10 +122,6 @@ def from_feature_array(data: np.ndarray, data_info: dict) -> Union[np.ndarray, x
     stack_info = data_info.get('stack_info')
     if stack_info:
         return to_unstacked_dataset(data, stack_info)
-    is_1d = data_info.get('is_1d')
-    if is_1d:
-        assert data.shape[1] == 1
-        data = data[:,0]
     da_info = data_info.get('da_info')
     if da_info:
         return xr.DataArray(data, **da_info)

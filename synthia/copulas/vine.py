@@ -1,3 +1,6 @@
+# Synthia (https://github.com/dmey/synthia).
+# Copyright (c) 2020 D. Meyer and T. Nagler. Licensed under the MIT License.
+
 from typing import Optional
 from multiprocessing import cpu_count
 import tempfile

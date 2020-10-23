@@ -1,3 +1,6 @@
+# Synthia (https://github.com/dmey/synthia).
+# Copyright (c) 2020 D. Meyer and T. Nagler. Licensed under the MIT License.
+
 from typing import List, Optional, Union, Dict
 import numpy as np
 import xarray as xr
@@ -43,7 +46,11 @@ class CopulaDataGenerator:
     Note that all three steps in the fitting phase are independent from each other.
 
     2. Generation phase
-      a) ?
+      a) Generate new samples from the fitted copula model (Gaussian or Vine).
+
+      b) Transform copula samples to the feature scale by the quantile transform.
+
+      c) (Optional) Apply modifications (uniformization, stretching) if asked for.
 
     Example:
         >>> import xarray as xr
@@ -74,7 +81,7 @@ class CopulaDataGenerator:
     def fit(self, data: Union[np.ndarray, xr.DataArray, xr.Dataset],
             copula: Copula,
             parameterize_by: Optional[Union[Parameterizer, Dict[int, Parameterizer], Dict[str, Parameterizer]]]=None):
-        """tbd
+        """Fit the marginal distributions and copula model for all features.
 
         Args:
             data (ndarray or DataArray or Dataset): The input data, either a
@@ -127,7 +134,7 @@ class CopulaDataGenerator:
                  uniformization_ratio: Union[float, Dict[int, float], Dict[str, float]] = 0,
                  stretch_factor: Union[float, Dict[int, float], Dict[str, float]] = 1, qrng=False, num_threads=1) \
                  -> Union[np.ndarray, xr.DataArray, xr.Dataset]:
-        """tbd
+        """Generate synthetic data from the model.
 
         Args:
             n_samples (int): Number of samples to generate.
@@ -193,12 +200,14 @@ def compute_rank_standardized(data: xr.DataArray) -> xr.DataArray:
        array([[0.5 , 0.75],
               [0.25, 0.5 ],
               [0.75, 0.25]])
-    
-    Todo: 
-        should this not be standardized from 0 to 1?
-         -> if 0 or 1 then ppf will be inf
+    """   
+    # Todo: 
+    #     should this not be standardized from 0 to 1?
+    #      -> if 0 or 1 then ppf will be inf
+    # Thomas:  it's fine because
+    #   - minimum rank is alway 1, so 1 / (data.dims[0] + 1) > 0
+    #   - maximum rank is always data.dims[0], so data.dims[0] / (data.dims[0] + 1) < 1.
 
-    """
     assert data.ndim == 2, f'Input array must be 2D, given: {data.ndim}'
     # rank() requires all data in-memory, hence compute()
     rank = data.compute().rank(data.dims[0])

@@ -8,13 +8,13 @@ with open(os.path.join(this_dir, "README.md"), encoding='utf-8') as f:
 
 setup(
     name='synthia',
-    version='0.0.1',
-    description='tbd',
+    version='0.1.0',
+    description='Multi-dimensional synthetic data generation in Python',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='https://...',
+    url='https://dmey.github.io/synthia',
     license="MIT",
-    author='...',
+    author='D. Meyer, T. Nagler',
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",

@@ -1,3 +1,6 @@
+# Synthia (https://github.com/dmey/synthia).
+# Copyright (c) 2020 D. Meyer and T. Nagler. Licensed under the MIT License.
+
 import numpy as np
 import scipy.stats
 import scipy.linalg
@@ -18,7 +21,7 @@ class GaussianCopula(Copula):
 
         Args:
             rank_standardized (ndarray): 2D array of shape (feature, feature)
-                with values in range [-1,1]
+                with values in range [0,1]
 
         Returns:
             None
@@ -27,26 +30,13 @@ class GaussianCopula(Copula):
         self.n_features = rank_standardized.shape[1]
         # We need to use the standardised rank to compute
         # the correlation matrix as the ranks are done on the
-        # maginals. Removing this and computing the ppf directly
-        # would only work if the marginals are normally distributed.
-        # Furthermore, we avoid taking the correlation directly on the data
-        # as this can lead to problems with the final results TODO: why? 
-        # Also, using the rank loses information from the data and may change the correlation
-        # in some cases:
-        # arr = xr.DataArray([(10,0.3), (5,0.3), (150000,10.001)])
-        # ranks = data_generator.compute_rank_standardized(arr).values
-        # array([[0.5  , 0.375],
-        #        [0.25 , 0.375],
-        #        [0.75 , 0.75 ]])
-        # compute_norm_corr(arr)
-        # array([[1., 1.],
-        #        [1., 1.]])
-        # compute_norm_corr(scipy.stats.norm.ppf(ranks))
-        # array([[1.       , 0.8660254],
-        #        [0.8660254, 1.       ]])
-        # This is because the rank ignores distances between values and only keeps
-        # the ordering.
-        # TODO: why?
+        # maginals. The Gaussian copula is parameterized by a correlation 
+        # matrix This matrix can be estimated by computing the correlations 
+        # between the standardized ranks after they have been transformed by 
+        # the normal ppf. (This is not the same as the correlation 
+        # between ranks.) The reason is that the Gaussian copula is derived 
+        # from a multivariate Gaussian distribution, where all margins are 
+        # Gaussian.
         ppf = scipy.stats.norm.ppf(rank_standardized)
         self.corr = compute_norm_corr(ppf)
 
