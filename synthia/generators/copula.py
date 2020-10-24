@@ -200,13 +200,7 @@ def compute_rank_standardized(data: xr.DataArray) -> xr.DataArray:
        array([[0.5 , 0.75],
               [0.25, 0.5 ],
               [0.75, 0.25]])
-    """   
-    # Todo: 
-    #     should this not be standardized from 0 to 1?
-    #      -> if 0 or 1 then ppf will be inf
-    # Thomas:  it's fine because
-    #   - minimum rank is alway 1, so 1 / (data.dims[0] + 1) > 0
-    #   - maximum rank is always data.dims[0], so data.dims[0] / (data.dims[0] + 1) < 1.
+    """
 
     assert data.ndim == 2, f'Input array must be 2D, given: {data.ndim}'
     # rank() requires all data in-memory, hence compute()

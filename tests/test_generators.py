@@ -26,7 +26,6 @@ def test_independent_dataset_generation():
 
     generator = syn.CopulaDataGenerator()
 
-    # TODO test all variants of `parameterize_by`
     generator.fit(input_data, copula=syn.IndependenceCopula(),
         parameterize_by=syn.QuantileParameterizer(n_quantiles=100))
 
@@ -72,7 +71,6 @@ def test_copula_dataset_generation():
 
     generator = syn.CopulaDataGenerator()
 
-    # TODO test all variants of `parameterize_by`
     generator.fit(input_data, copula=syn.GaussianCopula(), 
                   parameterize_by=syn.QuantileParameterizer(n_quantiles=100))
 
@@ -113,7 +111,6 @@ def test_gaussian_copula_feature_generation():
 
     generator = syn.CopulaDataGenerator(verbose=True)
 
-    # TODO test all variants of `parameterize_by`
     generator.fit(input_data, copula=syn.GaussianCopula(),
                   parameterize_by=syn.QuantileParameterizer(n_quantiles=100))
 
@@ -134,7 +131,6 @@ def test_vine_copula_feature_generation():
 
     generator = syn.CopulaDataGenerator(verbose=True)
 
-    # TODO test all variants of `parameterize_by`
     ctrl = pv.FitControlsVinecop(family_set=[pv.gaussian], trunc_lvl=1, select_trunc_lvl=False, show_trace=True)
     generator.fit(input_data, copula=syn.VineCopula(controls=ctrl),
                   parameterize_by=syn.QuantileParameterizer(n_quantiles=100))

@@ -74,7 +74,7 @@ class BoxCoxTransformer(Transformer):
                 zip(self.var_names, self.lmbdas, self.shifting_factors, self.boundary_locations):
             stacked, stack_info = util.to_stacked_array(ds[[name]])
             
-            # FIXME: this does not guarantee that the generated samples are above zero.
+            # This does not guarantee that the generated samples are above zero.
             reverted = inv_boxcox(stacked, lmbda) - shifting_factor_per_feature
             
             unstacked = util.to_unstacked_dataset(reverted.values, stack_info)
