@@ -56,7 +56,6 @@ class FPCADataGenerator:
 
         data, self.data_info = to_feature_array(data)
 
-        # TODO instead of number of fpca components, can we do it by retained variance?
         assert n_fpca_components > 0
         self.n_fpca_components = n_fpca_components
         self.n_samples_reduced = n_samples_reduced
@@ -92,7 +91,6 @@ class FPCADataGenerator:
             self.eig_parameterizer = []
             for i in range(self.n_fpca_components):
                 p = QuantileParameterizer(self.n_samples_reduced)
-                # TODO remove type conversion?
                 p.fit(np.array(eig_scores[:,i], dtype='d'))
                 self.eig_parameterizer.append(p)
 
@@ -116,8 +114,6 @@ class FPCADataGenerator:
             else:
                 eig_score = self.eig_parameterizer[i].generate(n_samples)
 
-            # TODO check if factor should be applied after np.quantile
-            # TODO check if factor should be done with median like in data_generator.py
             if scaling_factor:
                 eig_score = eig_score * scaling_factor
 

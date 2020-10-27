@@ -52,7 +52,7 @@ class VineCopula(Copula):
         Returns:
             2D array of shape (n_samples, feature) with Vine copula entries.
         """
-        u_sim = self.model.simulate(n_samples, qrn=qrng, num_threads=num_threads)
+        u_sim = self.model.simulate(n_samples, qrng=qrng, num_threads=num_threads)
         return u_sim
 
     # Pickling support

@@ -99,11 +99,9 @@ def to_unstacked_dataset(arr: np.ndarray, stack_info: StackInfo) -> xr.Dataset:
     return ds
 
 def to_feature_array(data: Union[np.ndarray, xr.DataArray, xr.Dataset]) -> Tuple[xr.DataArray, dict]:
-    # TODO what about dtype?
     data_info = {}
     if isinstance(data, xr.Dataset):
         data, stack_info = to_stacked_array(data)
-        # TODO this loses some metadata like coords
         data_info['stack_info'] = stack_info
     else:
         if isinstance(data, xr.DataArray):
