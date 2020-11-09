@@ -2,7 +2,7 @@
 
 ## Required dependencies
 
-- Python (3.7 or later)
+- Python (3.8 or later)
 - [numpy](http://www.numpy.org/)
 - [scipy](https://www.scipy.org/scipylib/index.html)
 - [xarray](http://xarray.pydata.org/)
