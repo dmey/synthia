@@ -5,8 +5,11 @@ from typing import List, Optional, Union, Dict
 import numpy as np
 import xarray as xr
 
+from scipy.stats import rankdata
+
 from ..parameterizers.parameterizer import Parameterizer
 from ..copulas.copula import Copula
+from ..copulas.vine import VineCopula
 from ..util import to_feature_array, from_feature_array, per_feature
 
 class CopulaDataGenerator:
@@ -80,6 +83,7 @@ class CopulaDataGenerator:
 
     def fit(self, data: Union[np.ndarray, xr.DataArray, xr.Dataset],
             copula: Copula,
+            is_discrete: Optional[Union[bool, Dict[int, bool], Dict[str, bool]]]=None,
             parameterize_by: Optional[Union[Parameterizer, Dict[int, Parameterizer], Dict[str, Parameterizer]]]=None):
         """Fit the marginal distributions and copula model for all features.
 
@@ -89,6 +93,8 @@ class CopulaDataGenerator:
                 variables have the shape (sample[, ...]).
 
             copula: The underlying copula to use, for example a GaussianCopula object.
+
+            is_discrete : indicates whether features are discrete or continuous
 
             parameterize_by (Parameterizer or mapping, optional): The
                 following forms are valid:
@@ -106,11 +112,18 @@ class CopulaDataGenerator:
         self.dtype = data.dtype
         self.n_features = data.shape[1]
 
+        self.is_discrete = per_feature(is_discrete, self.data_info)
+        if any(self.is_discrete) and not isinstance(copula, VineCopula):
+            raise TypeError('Discrete samples can only be modelled in vine copulas')
+
         self._log('computing rank data')
-        rank_standardized = compute_rank_standardized(data)
+        rank_standardized = compute_rank_standardized(data, self.is_discrete)
         
         self._log('fitting copula')
-        copula.fit(rank_standardized)
+        if any(self.is_discrete):
+            copula.fit_with_discrete(rank_standardized, self.is_discrete)
+        else:
+            copula.fit(rank_standardized)
 
         self._log('parameterizing data')
         self.parameterizers = per_feature(parameterize_by, self.data_info)
@@ -173,7 +186,12 @@ class CopulaDataGenerator:
             else:
                 feature_samples = self.parameterizers[i].generate(n_samples)
 
-            samples[:,i] = np.quantile(feature_samples, q=u[:, i], interpolation='linear')
+            if self.is_discrete[i]:
+                interp = 'nearest'
+            else:
+                interp = 'linear'
+
+            samples[:,i] = np.quantile(feature_samples, q=u[:, i], interpolation=interp)
 
             if unif_ratio_per_feature[i] != 0:
                 feature_min = self.feature_min[i].compute().item()
@@ -189,22 +207,38 @@ class CopulaDataGenerator:
 
         return samples
 
-def compute_rank_standardized(data: xr.DataArray) -> xr.DataArray:
+def compute_rank_standardized(data: xr.DataArray, is_discrete: List[bool]) -> np.ndarray:
     """Compute per-feature percentage ranks of the data. Data is a 
     2D xarray of shape (sample, feature).
 
     Example:
        >>> # 3 samples, 2 features
        >>> data = xr.DataArray([(10,0.3), (5,0.2), (1500,0.1)])
-       >>> compute_rank_standardized(data).values
+       >>> compute_rank_standardized(data)
        array([[0.5 , 0.75],
               [0.25, 0.5 ],
               [0.75, 0.25]])
     """
 
     assert data.ndim == 2, f'Input array must be 2D, given: {data.ndim}'
-    # rank() requires all data in-memory, hence compute()
-    rank = data.compute().rank(data.dims[0])
-    rank_standardized = rank / (rank.max(data.dims[0]) + 1)
-    assert rank_standardized.shape == data.shape
+    data = data.compute()
+    if not any(is_discrete):
+        rank = data.rank(data.dims[0])
+        rank = rank.values
+    else:
+        # use scipy for discrete as xarray only supports 'average' rank
+        assert len(is_discrete) == data.shape[1], f"is_discrete must have length {data.shape[1]} but is {len(is_discrete)}"
+        ranks = []
+        for i in range(data.shape[1]):
+            feature = data[:,i]
+            if is_discrete[i]:
+                feature_rank_max = rankdata(feature, method='max')
+                feature_rank_min = rankdata(feature, method='min') - 1
+                ranks.append(feature_rank_max.reshape(-1, 1))
+                ranks.append(feature_rank_min.reshape(-1, 1))
+            else:
+                feature_rank = feature.rank(feature.dims[0]).values
+                ranks.append(feature_rank.reshape(-1, 1))
+        rank = np.concatenate(ranks, axis=1)
+    rank_standardized = rank / (rank.max(axis=0) + 1)
     return rank_standardized
