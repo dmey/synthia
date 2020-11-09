@@ -214,7 +214,7 @@ def compute_rank_standardized(data: xr.DataArray, is_discrete: List[bool]) -> np
     Example:
        >>> # 3 samples, 2 features
        >>> data = xr.DataArray([(10,0.3), (5,0.2), (1500,0.1)])
-       >>> compute_rank_standardized(data)
+       >>> compute_rank_standardized(data, is_discrete=[False, False])
        array([[0.5 , 0.75],
               [0.25, 0.5 ],
               [0.75, 0.25]])
