@@ -164,7 +164,7 @@ def load_dataset(name='SAF-Synthetic') -> xr.Dataset:
     if name != 'SAF-Synthetic':
         raise RuntimeError('Only SAF-Synthetic is currerlty supported')
 
-    url = 'https://raw.githubusercontent.com/dmey/pyvinecopulib/tmp/assets/data/generator_saf_temperature_fpca_6.pkl'
+    url = 'https://raw.githubusercontent.com/dmey/synthia/data/generator_saf_temperature_fpca_6.pkl'
     generator = pickle.load(urlopen(url))
     N_SAMPLES = 25000
     ds = generator.generate(N_SAMPLES)
