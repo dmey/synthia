@@ -21,7 +21,7 @@ setup(
         "Programming Language :: Python :: 3",
     ],
     packages=find_packages(),
-    python_requires=">=3.7", # when changing this, also change environment-test.yml
+    python_requires=">=3.8", # when changing this, also change environment-test.yml
     install_requires=[
         "numpy",
         "scipy",
