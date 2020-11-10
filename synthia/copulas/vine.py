@@ -1,7 +1,7 @@
 # Synthia (https://github.com/dmey/synthia).
 # Copyright (c) 2020 D. Meyer and T. Nagler. Licensed under the MIT License.
 
-from typing import Optional
+from typing import Optional, List
 from multiprocessing import cpu_count
 import tempfile
 import os
@@ -32,16 +32,31 @@ class VineCopula(Copula):
         self.controls = controls
 
     def fit(self, rank_standardized: np.ndarray) -> None:
-        """Fit a Vine copula to data.
+        """Fit a Vine copula to continuous data.
 
         Args:
-            rank_standardized (ndarray): 2D array of shape (feature, feature)
+            rank_standardized (ndarray): 2D array of shape (sample, feature)
                 with values in range [-1,1]
 
         Returns:
             None
         """
         self.model = pv.Vinecop(rank_standardized, controls=self.controls)
+
+    def fit_with_discrete(self, rank_standardized: np.ndarray, is_discrete: List[bool]) -> None:
+        """Fit a Vine copula to mixed continuous/discrete data
+
+        Args:
+            rank_standardized (ndarray): 2D array of shape (sample, feature)
+                with values in range [-1,1]
+        
+            is_discrete (List[bool]): 1D list of booleans of shape (feature) indicating
+                whether features are discrete or continuous
+        Returns:
+            None
+        """
+        var_types = ["d" if d else "c" for d in is_discrete]
+        self.model = pv.Vinecop(rank_standardized, controls=self.controls, var_types=var_types)
 
     def generate(self, n_samples: int, qrng: bool=False, num_threads: int=1, seed: Optional[int]=None) -> np.ndarray:
         """Generate n_samples Vine copula entries.
@@ -50,7 +65,7 @@ class VineCopula(Copula):
             n_samples (int): Number of samples to generate.
 
         Returns:
-            2D array of shape (n_samples, feature) with Vine copula entries.
+            2D array of shape (sample, feature) with Vine copula entries.
         """
         seeds = [] if seed is None else [seed]
         u_sim = self.model.simulate(n_samples, qrng=qrng, num_threads=num_threads, seeds=seeds)

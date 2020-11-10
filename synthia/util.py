@@ -47,6 +47,7 @@ class StackInfoVar(NamedTuple):
     name: str
     dims: Tuple[str, ...]
     shape: Tuple[int, ...]
+    dtype: np.dtype
 
 StackInfo = List[StackInfoVar]
 
@@ -68,7 +69,7 @@ def to_stacked_array(ds: xr.Dataset, var_names=None, new_dim='stacked', name=Non
             stacked = stacked.drop(list(stacked.coords.keys()))
         else:
             stacked = v.expand_dims(new_dim, axis=-1)
-        stack_info.append(StackInfoVar(var_name, v.dims, v.shape[1:]))
+        stack_info.append(StackInfoVar(var_name, v.dims, v.shape[1:], v.dtype))
         var_stacked.append(stacked)
     arr = xr.concat(var_stacked, new_dim)
     if name:
@@ -93,6 +94,7 @@ def to_unstacked_dataset(arr: np.ndarray, stack_info: StackInfo) -> xr.Dataset:
             unstacked_shape.append(dim_len)
         var_slice = arr[:, curr_i:curr_i+feature_len]
         var_unstacked = var_slice.reshape(unstacked_shape)
+        var_unstacked = var_unstacked.astype(var.dtype, copy=False)
         unstacked[var.name] = xr.DataArray(var_unstacked, dims=var.dims)
         curr_i += feature_len
     ds = xr.Dataset(unstacked)
@@ -162,7 +164,7 @@ def load_dataset(name='SAF-Synthetic') -> xr.Dataset:
     if name != 'SAF-Synthetic':
         raise RuntimeError('Only SAF-Synthetic is currerlty supported')
 
-    url = 'https://raw.githubusercontent.com/dmey/pyvinecopulib/tmp/assets/data/generator_saf_temperature_fpca_6.pkl'
+    url = 'https://raw.githubusercontent.com/dmey/synthia/data/generator_saf_temperature_fpca_6.pkl'
     generator = pickle.load(urlopen(url))
     N_SAMPLES = 25000
     ds = generator.generate(N_SAMPLES)
