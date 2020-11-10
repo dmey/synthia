@@ -228,17 +228,21 @@ def compute_rank_standardized(data: xr.DataArray, is_discrete: List[bool]) -> np
     else:
         # use scipy for discrete as xarray only supports 'average' rank
         assert len(is_discrete) == data.shape[1], f"is_discrete must have length {data.shape[1]} but is {len(is_discrete)}"
+        
         ranks = []
         for i in range(data.shape[1]):
             feature = data[:,i]
             if is_discrete[i]:
                 feature_rank_max = rankdata(feature, method='max')
-                feature_rank_min = rankdata(feature, method='min') - 1
                 ranks.append(feature_rank_max.reshape(-1, 1))
-                ranks.append(feature_rank_min.reshape(-1, 1))
             else:
                 feature_rank = feature.rank(feature.dims[0]).values
                 ranks.append(feature_rank.reshape(-1, 1))
+
+        feature_rank_min = rankdata(data[:, is_discrete], method='min') - 1
+        ranks.append(feature_rank_min)
+
         rank = np.concatenate(ranks, axis=1)
+    
     rank_standardized = rank / (rank.max(axis=0) + 1)
     return rank_standardized
