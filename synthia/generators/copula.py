@@ -121,6 +121,7 @@ class CopulaDataGenerator:
         
         self._log('fitting copula')
         if any(self.is_discrete):
+            assert isinstance(copula, VineCopula)
             copula.fit_with_discrete(rank_standardized, self.is_discrete)
         else:
             copula.fit(rank_standardized)
