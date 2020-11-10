@@ -1,6 +1,7 @@
 # Synthia (https://github.com/dmey/synthia).
 # Copyright (c) 2020 D. Meyer and T. Nagler. Licensed under the MIT License.
 
+from typing import Optional
 import numpy as np
 try:
     import pyvinecopulib as pv
@@ -27,7 +28,7 @@ class IndependenceCopula(Copula):
         """
         self.n_features = rank_standardized.shape[1]
 
-    def generate(self, n_samples: int, qrng=False, num_threads=1) -> np.ndarray:
+    def generate(self, n_samples: int, qrng: bool=False, seed: Optional[int]=None) -> np.ndarray:
         """Generate n_samples of a vector of independent uniform random variables.
 
         Args:
@@ -40,8 +41,10 @@ class IndependenceCopula(Copula):
         # Uniform entries.
         if qrng:
             assert pv, "pyvinecopulib not installed but required for qrng=True"
-            u = pv.simulate_uniform(n_samples, self.n_features, qrng=True)
+            seeds = [] if seed is None else [seed]
+            u = pv.simulate_uniform(n_samples, self.n_features, qrng=True, seeds=seeds)
         else:
             # ~3x faster than pv for generating pseudo-random numbers.
-            u = np.random.uniform(size=(n_samples, self.n_features))
+            r = np.random.RandomState(seed)
+            u = r.uniform(size=(n_samples, self.n_features))
         return u
