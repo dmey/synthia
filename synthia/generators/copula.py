@@ -132,7 +132,8 @@ class CopulaDataGenerator:
 
     def generate(self, n_samples: int,
                  uniformization_ratio: Union[float, Dict[int, float], Dict[str, float]] = 0,
-                 stretch_factor: Union[float, Dict[int, float], Dict[str, float]] = 1, qrng=False, num_threads=1) \
+                 stretch_factor: Union[float, Dict[int, float], Dict[str, float]] = 1,
+                 **copula_kws) \
                  -> Union[np.ndarray, xr.DataArray, xr.Dataset]:
         """Generate synthetic data from the model.
 
@@ -162,7 +163,7 @@ class CopulaDataGenerator:
         stretch_factor_per_feature = per_feature(stretch_factor, self.data_info)
 
         self._log(f'generating {n_samples} samples using copula')
-        u = self.copula.generate(n_samples, qrng=qrng, num_threads=num_threads)
+        u = self.copula.generate(n_samples, **copula_kws)
 
         self._log(f'applying quantiles')
         samples = np.empty((n_samples, self.n_features), dtype=self.dtype)

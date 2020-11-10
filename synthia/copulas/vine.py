@@ -43,7 +43,7 @@ class VineCopula(Copula):
         """
         self.model = pv.Vinecop(rank_standardized, controls=self.controls)
 
-    def generate(self, n_samples: int, qrng=False, num_threads=1) -> np.ndarray:
+    def generate(self, n_samples: int, qrng: bool=False, num_threads: int=1, seed: Optional[int]=None) -> np.ndarray:
         """Generate n_samples Vine copula entries.
 
         Args:
@@ -52,7 +52,8 @@ class VineCopula(Copula):
         Returns:
             2D array of shape (n_samples, feature) with Vine copula entries.
         """
-        u_sim = self.model.simulate(n_samples, qrng=qrng, num_threads=num_threads)
+        seeds = [] if seed is None else [seed]
+        u_sim = self.model.simulate(n_samples, qrng=qrng, num_threads=num_threads, seeds=seeds)
         return u_sim
 
     # Pickling support
