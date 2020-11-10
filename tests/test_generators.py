@@ -38,7 +38,7 @@ def test_independent_dataset_generation():
     assert synthetic_data['a'].shape == (n_synthetic_samples, n_features[0])
     assert synthetic_data['b'].shape == (n_synthetic_samples, n_features[1])
 
-    np.testing.assert_equal(generator.generate(10, seed=42), generator.generate(10, seed=42))
+    assert generator.generate(10, seed=42).equals(generator.generate(10, seed=42))
 
 def test_independent_feature_generation_with_distribution():
     n_samples = 20
@@ -85,7 +85,7 @@ def test_copula_dataset_generation():
     assert synthetic_data['a'].shape == (n_synthetic_samples, n_features[0])
     assert synthetic_data['b'].shape == (n_synthetic_samples, n_features[1])
 
-    np.testing.assert_equal(generator.generate(10, seed=42), generator.generate(10, seed=42))
+    assert generator.generate(10, seed=42).equals(generator.generate(10, seed=42))
 
 def test_fpca_dataset_generation():
     n_samples = 200
@@ -148,7 +148,7 @@ def test_vine_copula_feature_generation():
     assert synthetic_data.shape == (n_synthetic_samples, n_features)
     assert isinstance(synthetic_data, xr.DataArray)
 
-    np.testing.assert_equal(generator.generate(10, seed=42), generator.generate(10, seed=42))
+    assert generator.generate(10, seed=42).equals(generator.generate(10, seed=42))
 
 def test_copula_ndarray_feature_generation():
     n_samples = 200
