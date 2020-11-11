@@ -100,7 +100,8 @@ def to_unstacked_dataset(arr: np.ndarray, stack_info: StackInfo) -> xr.Dataset:
     ds = xr.Dataset(unstacked)
     return ds
 
-def to_feature_array(data: Union[np.ndarray, xr.DataArray, xr.Dataset]) -> Tuple[xr.DataArray, dict]:
+def to_feature_array(data: Union[np.ndarray, xr.DataArray, xr.Dataset],
+                     types: Optional[Union[str, Dict[str,str], Dict[int,str]]]) -> Tuple[xr.DataArray, dict]:
     data_info = {}
     if isinstance(data, xr.Dataset):
         data, stack_info = to_stacked_array(data)
@@ -108,7 +109,6 @@ def to_feature_array(data: Union[np.ndarray, xr.DataArray, xr.Dataset]) -> Tuple
     else:
         if isinstance(data, xr.DataArray):
             data_info['da_info'] = dict(
-                coords=data.coords,
                 dims=data.dims,
                 name=data.name,
                 attrs=data.attrs
@@ -116,9 +116,58 @@ def to_feature_array(data: Union[np.ndarray, xr.DataArray, xr.Dataset]) -> Tuple
         data = xr.DataArray(data)
     assert data.ndim == 2, f'Input array must be 2D, given: {data.ndim}D'
     data_info['n_features'] = data.shape[1]
+
+    types_ = per_feature(types, data_info)
+    if not any(t == 'cat' for t in types_):
+        return data, data_info
+    
+    # Transform categorical features into one-hot vectors.
+    categories = {}
+    features = []
+    for i in range(data.shape[1]):
+        if types_[i] == 'cat':
+            one_hot, categories[i] = categories_to_one_hot(data[:,i])
+            features.append(one_hot)
+        else:
+            features.append(data[:,i:i+1])
+    data = xr.DataArray(np.concatenate(features, axis=1), dims=data.dims)
+    data_info['categories'] = categories
+
     return data, data_info
 
+def categories_to_one_hot(data: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
+    assert data.ndim == 1
+    categories = np.unique(data)
+    assert categories.ndim == 1
+    indices = np.empty(data.shape, np.uint16)
+    for index, cat_val in enumerate(categories):
+        indices[data == cat_val] = index
+    one_hot = indices_to_one_hot(indices, len(categories))
+    assert one_hot.shape == (len(data), len(categories))
+    return one_hot, categories
+
+# https://stackoverflow.com/a/42874900
+def indices_to_one_hot(data, nb_classes):
+    """Convert an iterable of indices to one-hot encoded labels."""
+    targets = np.array(data).reshape(-1)
+    return np.eye(nb_classes)[targets]
+
+def one_hot_to_categories(data: np.ndarray, categories: np.ndarray) -> np.ndarray:
+    assert data.ndim == 2
+    assert categories.ndim == 1
+    assert data.shape[1] == len(categories)
+    indices = np.argmax(data, axis=1)
+    out = categories[indices]
+    assert out.shape == (data.shape[0],)
+    return out
+
 def from_feature_array(data: np.ndarray, data_info: dict) -> Union[np.ndarray, xr.DataArray, xr.Dataset]:
+    categories = data_info.get('categories')
+    if categories:
+        # Map one-hot encoded categories into original values.
+        # TODO
+        pass
+
     stack_info = data_info.get('stack_info')
     if stack_info:
         return to_unstacked_dataset(data, stack_info)
@@ -131,6 +180,7 @@ def prod(iterable) -> int:
     return reduce(operator.mul, iterable, 1)
 
 def per_feature(val: Optional[Union[Any, Dict[str,Any], Dict[int,Any]]], data_info: dict) -> List[Any]:
+    # TODO expand if data_info['categories'] exists
     n_features, stack_info = data_info.get('n_features'), data_info.get('stack_info')
     if n_features is None:
         n_features_ = sum(prod(info.shape) for info in stack_info)

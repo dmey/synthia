@@ -4,7 +4,10 @@
 import numpy as np
 import xarray as xr
 
-from synthia.util import to_stacked_array, to_unstacked_dataset
+from synthia.util import (
+    to_stacked_array, to_unstacked_dataset,
+    categories_to_one_hot, one_hot_to_categories
+)
 
 def test_stacking_roundtrip():
     a = np.arange(12).reshape(2,6)
@@ -18,3 +21,9 @@ def test_stacking_roundtrip():
     arr, info = to_stacked_array(ds)
     ds_u = to_unstacked_dataset(arr.values, info)
     assert ds.identical(ds_u)
+
+def test_one_hot_roundtrip():
+    data = np.array([1, 4, 2, 1, 5])
+    one_hot, categories = categories_to_one_hot(data)
+    data_ = one_hot_to_categories(one_hot, categories)
+    np.testing.assert_equal(data_, data)
