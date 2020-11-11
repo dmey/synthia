@@ -8,7 +8,7 @@ with open(os.path.join(this_dir, "README.md"), encoding='utf-8') as f:
 
 setup(
     name='synthia',
-    version='0.1.1',
+    version='0.2.0',
     description='Multi-dimensional synthetic data generation in Python',
     long_description=long_description,
     long_description_content_type="text/markdown",
