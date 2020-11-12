@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/img/logo.png" alt="synthia" height="120">
+  <img src="assets/img/logo.png" alt="synthia" height="120"><br>
 
   ![PyPI](https://img.shields.io/pypi/v/synthia) ![CI](https://github.com/dmey/synthia/workflows/CI/badge.svg)
 
