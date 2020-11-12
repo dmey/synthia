@@ -1,3 +1,6 @@
+0.3.0
+- Add support for handling categorical quantities (#10, #13).
+
 0.2.0
 - Add support for handling discrete quantities (#9).
 - Add support for setting a seed when generating new samples (#11).
