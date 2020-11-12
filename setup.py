@@ -8,7 +8,7 @@ with open(os.path.join(this_dir, "README.md"), encoding='utf-8') as f:
 
 setup(
     name='synthia',
-    version='0.1.1',
+    version='0.2.0',
     description='Multi-dimensional synthetic data generation in Python',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -16,12 +16,12 @@ setup(
     license="MIT",
     author='D. Meyer, T. Nagler',
     classifiers=[
-        "Development Status :: 3 - Alpha",
-        "Intended Audience :: Developers",
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Science/Research",
         "Programming Language :: Python :: 3",
     ],
     packages=find_packages(),
-    python_requires=">=3.7", # when changing this, also change environment-test.yml
+    python_requires=">=3.8", # when changing this, also change environment-test.yml
     install_requires=[
         "numpy",
         "scipy",

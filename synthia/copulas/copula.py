@@ -10,5 +10,5 @@ class Copula(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def generate(self, n_samples: int) -> np.ndarray:
+    def generate(self, n_samples: int, **kws) -> np.ndarray:
         pass
