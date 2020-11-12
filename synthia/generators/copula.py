@@ -121,7 +121,7 @@ class CopulaDataGenerator:
         self.types = per_feature(types, self.data_info, default='cont')
         is_discrete = [t != 'cont' for t in self.types]
         if any(is_discrete) and not isinstance(copula, VineCopula):
-            raise TypeError('Discrete samples can only be modelled in vine copulas')
+            raise TypeError('Discrete/categorical data can only be modelled in vine copulas')
 
         self._log('computing rank data')
         rank_standardized = compute_rank_standardized(data, is_discrete)
