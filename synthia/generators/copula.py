@@ -118,7 +118,7 @@ class CopulaDataGenerator:
         self.dtype = data.dtype
         self.n_features = data.shape[1]
 
-        self.types = per_feature(types, self.data_info)
+        self.types = per_feature(types, self.data_info, default='cont')
         is_discrete = [t != 'cont' for t in self.types]
         if any(is_discrete) and not isinstance(copula, VineCopula):
             raise TypeError('Discrete samples can only be modelled in vine copulas')
