@@ -248,7 +248,7 @@ def compute_rank_standardized(data: xr.DataArray, is_discrete: List[bool]) -> np
                 feature_rank = feature.rank(feature.dims[0]).values
                 ranks.append(feature_rank.reshape(-1, 1))
 
-        feature_rank_min = rankdata(data[:, is_discrete], method='min') - 1
+        feature_rank_min = rankdata(data[:, is_discrete], axis=1, method='min') - 1
         ranks.append(feature_rank_min)
 
         rank = np.concatenate(ranks, axis=1)
