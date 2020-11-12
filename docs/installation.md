@@ -9,11 +9,16 @@
 
 ## Optional dependencies
 
-- [pyvinecopulib](https://github.com/vinecopulib/pyvinecopulib): For vine
-  copula and quasirandom number support
+- [pyvinecopulib](https://github.com/vinecopulib/pyvinecopulib): For vine copula and quasirandom number support.
 
 ## Instructions
 
 ```
 pip install synthia
+```
+
+or with optional dependencies
+
+```
+pip install synthia[full]
 ```
