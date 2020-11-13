@@ -2,6 +2,7 @@ Getting Started
 ---------------
 
 * :doc:`overview`
+* :doc:`features`
 * :doc:`installation`
 * :doc:`quickstart`
 * :doc:`examples`
@@ -12,6 +13,7 @@ Getting Started
    :caption: Getting Started
 
    overview
+   features
    installation
    quickstart.ipynb
    examples
