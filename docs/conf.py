@@ -49,6 +49,13 @@ copyright = '2020 D. Meyer and T. Nagler'
 author = 'D. Meyer and T. Nagler'
 release = '0.3.0'
 
+html_context = {
+  'display_github': True,
+  'github_user': 'dmey',
+  'github_repo': 'synthia',
+  'github_version': 'master/docs/',
+}
+
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
