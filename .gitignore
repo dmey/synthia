@@ -1,5 +1,6 @@
 # This project
 .vscode/
+docs/assets/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
