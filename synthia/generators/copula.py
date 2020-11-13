@@ -1,7 +1,7 @@
 # Synthia (https://github.com/dmey/synthia).
 # Copyright (c) 2020 D. Meyer and T. Nagler. Licensed under the MIT License.
 
-from typing import Optional, Union, Dict
+from typing import List, Optional, Union, Dict
 import numpy as np
 import xarray as xr
 

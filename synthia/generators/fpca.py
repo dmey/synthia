@@ -6,7 +6,7 @@ import numpy as np
 import xarray as xr
 
 from ..parameterizers.quantile import QuantileParameterizer
-from ..util import to_feature_array, from_feature_array
+from ..util import to_feature_array, from_feature_array, per_feature
 
 class FPCADataGenerator:
     """Estimates the characteristics of a set of multi-feature samples and 
