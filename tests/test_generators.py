@@ -150,6 +150,31 @@ def test_vine_copula_feature_generation():
 
     assert generator.generate(10, seed=42).equals(generator.generate(10, seed=42))
 
+@pytest.mark.skipif(pv == None, reason="Skip test if pyvinecopulib not installed")
+def test_vine_copula_with_categorical():
+    a = np.array([[0, 1, 2], [3, 4, 5]])
+    b = np.array([6, 7])
+    input_data = xr.Dataset({
+        'a': (('sample', 'foo'), a),
+        'b': (('sample'), b)
+        })
+
+    generator = syn.CopulaDataGenerator(verbose=True)
+
+    ctrl = pv.FitControlsVinecop(family_set=[pv.gaussian], trunc_lvl=1, select_trunc_lvl=False, show_trace=True)
+    generator.fit(input_data, types={ 'b': 'cat' }, copula=syn.VineCopula(controls=ctrl))
+
+    pickled = pickle.dumps(generator)
+    generator = pickle.loads(pickled)
+
+    n_synthetic_samples = 50
+    synthetic_data = generator.generate(n_samples=n_synthetic_samples)
+
+    assert synthetic_data['a'].shape == (n_synthetic_samples, 3)
+    assert synthetic_data['b'].shape == (n_synthetic_samples,)
+
+    assert generator.generate(10, seed=42).equals(generator.generate(10, seed=42))
+
 def test_copula_ndarray_feature_generation():
     n_samples = 200
     n_features = 100

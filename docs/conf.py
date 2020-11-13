@@ -40,7 +40,7 @@ copy_overview(PROJ_DIR / 'README.md', PROJ_DIR / 'docs' / 'overview.md', True)
 project = 'synthia'
 copyright = '2020 D. Meyer and T. Nagler'
 author = 'D. Meyer and T. Nagler'
-release = '0.2.0'
+release = '0.3.0'
 
 extensions = [
     "sphinx.ext.autodoc",

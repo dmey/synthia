@@ -83,7 +83,7 @@ class CopulaDataGenerator:
 
     def fit(self, data: Union[np.ndarray, xr.DataArray, xr.Dataset],
             copula: Copula,
-            is_discrete: Optional[Union[bool, Dict[int, bool], Dict[str, bool]]]=None,
+            types: Optional[Union[str, Dict[int, str], Dict[str, str]]]=None,
             parameterize_by: Optional[Union[Parameterizer, Dict[int, Parameterizer], Dict[str, Parameterizer]]]=None):
         """Fit the marginal distributions and copula model for all features.
 
@@ -94,7 +94,13 @@ class CopulaDataGenerator:
 
             copula: The underlying copula to use, for example a GaussianCopula object.
 
-            is_discrete : indicates whether features are discrete or continuous
+            types (str or mapping, optional): Indicates whether features
+                are categorical ('cat'), discrete ('disc'), or continuous ('cont').
+                The following forms are valid:
+
+                - str
+                - per-feature mapping {feature idx: str} -- ndarray/DataArray only
+                - per-variable mapping {var name: str} -- Dataset only
 
             parameterize_by (Parameterizer or mapping, optional): The
                 following forms are valid:
@@ -107,22 +113,23 @@ class CopulaDataGenerator:
             None
         """
         
-        data, self.data_info = to_feature_array(data)
+        data, self.data_info = to_feature_array(data, types)
         
         self.dtype = data.dtype
         self.n_features = data.shape[1]
 
-        self.is_discrete = per_feature(is_discrete, self.data_info)
-        if any(self.is_discrete) and not isinstance(copula, VineCopula):
-            raise TypeError('Discrete samples can only be modelled in vine copulas')
+        self.types = per_feature(types, self.data_info, default='cont')
+        is_discrete = [t != 'cont' for t in self.types]
+        if any(is_discrete) and not isinstance(copula, VineCopula):
+            raise TypeError('Discrete/categorical data can only be modelled in vine copulas')
 
         self._log('computing rank data')
-        rank_standardized = compute_rank_standardized(data, self.is_discrete)
+        rank_standardized = compute_rank_standardized(data, is_discrete)
         
         self._log('fitting copula')
-        if any(self.is_discrete):
+        if any(is_discrete):
             assert isinstance(copula, VineCopula)
-            copula.fit_with_discrete(rank_standardized, self.is_discrete)
+            copula.fit_with_discrete(rank_standardized, is_discrete)
         else:
             copula.fit(rank_standardized)
 
@@ -188,10 +195,10 @@ class CopulaDataGenerator:
             else:
                 feature_samples = self.parameterizers[i].generate(n_samples)
 
-            if self.is_discrete[i]:
-                interp = 'nearest'
-            else:
+            if self.types[i] == 'cont':
                 interp = 'linear'
+            else:
+                interp = 'nearest'
 
             samples[:,i] = np.quantile(feature_samples, q=u[:, i], interpolation=interp)
 
@@ -241,7 +248,7 @@ def compute_rank_standardized(data: xr.DataArray, is_discrete: List[bool]) -> np
                 feature_rank = feature.rank(feature.dims[0]).values
                 ranks.append(feature_rank.reshape(-1, 1))
 
-        feature_rank_min = rankdata(data[:, is_discrete], method='min') - 1
+        feature_rank_min = rankdata(data[:, is_discrete], axis=1, method='min') - 1
         ranks.append(feature_rank_min)
 
         rank = np.concatenate(ranks, axis=1)
