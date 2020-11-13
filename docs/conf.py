@@ -89,8 +89,6 @@ nbsphinx_timeout = 120
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 if os.environ.get('SKIP_NB') == '1':
     exclude_patterns.append('examples/*')
-exclude_patterns.append('__*')
-
 
 html_logo = "../assets/img/logo.png"
 
