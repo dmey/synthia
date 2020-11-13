@@ -236,7 +236,8 @@ def per_feature(val: Optional[Union[Any, Dict[str,Any], Dict[int,Any]]], data_in
 
 def load_dataset(name='SAF-Synthetic') -> xr.Dataset:
     """ Return a dataset of 25 000 synthetic temperature profiles
-    from the SAF dataset.
+    from the SAF dataset (http://dx.doi.org/10.13140/2.1.4476.8963).
+    These were fitted with 6 fPCA componenets in Synthia version 0.2.0.
     """
     from urllib.request import urlopen
     import pickle

@@ -1,6 +1,7 @@
 import os
 import sys
 from pathlib import Path
+import shutil
 import inspect
 
 PROJ_DIR = Path.cwd().parent
@@ -34,6 +35,12 @@ def copy_overview(f_read: Path, f_write: Path, rebuild=False) -> None:
                     parse = False 
                 if parse:
                     fw.write(line)
+    # Copy the figures as well as relative paths are left unchnaged
+    ASSETS_SOURCE_DIR = PROJ_DIR / 'assets'
+    ASSETS_DEST_DIR = PROJ_DIR / 'docs' / 'assets'
+    if ASSETS_DEST_DIR.exists():
+        shutil.rmtree(ASSETS_DEST_DIR)
+    shutil.copytree(ASSETS_SOURCE_DIR, ASSETS_DEST_DIR)
 
 copy_overview(PROJ_DIR / 'README.md', PROJ_DIR / 'docs' / 'overview.md', True)
 
@@ -82,8 +89,6 @@ nbsphinx_timeout = 120
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 if os.environ.get('SKIP_NB') == '1':
     exclude_patterns.append('examples/*')
-exclude_patterns.append('__*')
-
 
 html_logo = "../assets/img/logo.png"
 
