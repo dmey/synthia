@@ -8,9 +8,9 @@
 
 ## Overview
 
-Synthia is a tool for generating multi-dimensional data in Python. It has a simple and succinct API to natively handle multidimensional data using [xarray](https://xarray.pydata.org)'s labeled arrays and datasets. It supports different methods of data generation such as[ functional Principle Component Analysis (fPCA)](https://dmey.github.io/synthia/fpca.html), and Parametric (Gaussian) and Vine [copula models](https://dmey.github.io/synthia/copula.html). Depending on the type of model, it can be used to fit and generate different types of multivariate data with (or a mix of) discrete, categorical, and continuous variables. For example, given some vertical profiles of atmospheric temperature, we can use Synthia to generate new but statistically similar profiles using a copula and fPCA model in three lines of code (Table 1). For more information about the features included in the latest version of Synthia, please see the [Synthia website](https://dmey.github.io/synthia).
+Synthia is a tool for generating multidimensional data in Python. It has a simple and succinct API to natively handle [xarray](https://xarray.pydata.org)'s labelled arrays and datasets. It supports different methods of data generation such as [functional Principle Component Analysis (fPCA)](https://dmey.github.io/synthia/fpca.html), and parametric (Gaussian) and vine [copula models](https://dmey.github.io/synthia/copula.html) for continuous (all) discrete (vine), and categorical (vine) variables. For example, given some vertical profiles of atmospheric temperature, we can use Synthia to generate new but statistically similar profiles using a copula and fPCA models in just three lines of code (Table 1). For more information about the latest version of Synthia, please see the [website](https://dmey.github.io/synthia).
 
-**Table 1. Example application of Gaussian and fPCA classes in Synthia used to generate random profiles of atmospheric temperature similar to those included in the SAF dataset (REF). The xarray dataset structure is maintained and returned by Synthia.**
+**Table 1. Example application of Gaussian and fPCA classes in Synthia. These are used to generate random profiles of atmospheric temperature similar to those included in the source data. The xarray dataset structure is maintained and returned by Synthia.**
 
 | Source                                   | Synthetic with Gaussian Copula                     | Synthetic with fPCA                            |
 | ---------------------------------------- | -------------------------------------------------- | ---------------------------------------------- |
@@ -23,7 +23,7 @@ Synthia is a tool for generating multi-dimensional data in Python. It has a simp
 
 ## Documentation
 
-For installation instructions, getting started guides and tutorials, background information, and API reference summaries, please see the [Synthia website](https://dmey.github.io/synthia).
+For installation instructions, getting started guides and tutorials, background information, and API reference summaries, please see the [website](https://dmey.github.io/synthia).
 
 
 ## How to cite
@@ -32,9 +32,9 @@ Please cite the software summary paper and software version using the following 
 
 | Software summary paper | Software version* |
 | ---------------------- | ----------------- |
-| [TODO](TODO)           | [TODO](TODO)      |
+| *In Preparation*       | *In Preparation*  |
 
-*please make sure to cite the same version you are using with the correct DOI. For a list of all available versions see the [list of available versions on TODO](TODO).
+*please make sure to cite the same version you are using with the correct DOI. For a list of all available versions see the list of available versions (In Preparation).
 
 
 ## Contributing
