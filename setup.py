@@ -12,7 +12,7 @@ setup(
     description='Multi-dimensional synthetic data generation in Python',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='https://dmey.github.io/synthia',
+    url='https://github.com/dmey/synthia',
     license="MIT",
     author='D. Meyer, T. Nagler',
     classifiers=[
