@@ -1,7 +1,7 @@
 <div align="center">
   <img src="assets/img/logo.png" alt="synthia" height="120"><br><br>
 
-  ![PyPI](https://img.shields.io/pypi/v/synthia) ![CI](https://github.com/dmey/synthia/workflows/CI/badge.svg)
+  [![PyPI](https://img.shields.io/pypi/v/synthia)](https://pypi.org/project/synthia) [![CI](https://github.com/dmey/synthia/workflows/CI/badge.svg)](https://github.com/dmey/synthia/actions)
 
   [Overview](#overview) | [Documentation](#documentation) | [How to cite](#how-to-cite) | [Contributing](#contributing) | [Development notes](#development-notes) | [Copyright and license](#copyright-and-license) | [Acknowledgements](#acknowledgements)
 </div>
