@@ -1,3 +1,5 @@
 name: synthia-test
+channels:
+  - defaults
 dependencies:
   - pytest
