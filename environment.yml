@@ -1,9 +1,5 @@
 name: synthia
-channels:
-  - defaults
-  - conda-forge
 dependencies:
-  - python=3.8
   - pytest
   - numpy
   - scipy
