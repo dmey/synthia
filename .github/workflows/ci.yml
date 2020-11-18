@@ -4,19 +4,26 @@ on: [push, pull_request]
 
 jobs:
   main:
-    runs-on: ubuntu-latest
-
+    name: ${{ matrix.os }} with python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest', 'macos-latest', 'windows-latest']
+        # when changing version, also change setup.py
+        python-version: ['3.8']
     steps:
     - uses: actions/checkout@v2
-    
-    - uses: goanpeca/setup-miniconda@v1
+    - uses: conda-incubator/setup-miniconda@v2
       with:
+        auto-update-conda: true
+        python-version: ${{ matrix.python-version }}
         activate-environment: synthia-test
         environment-file: environment-test.yml
 
     - name: Install Synthia (test env)
       # 'shell' required to activate environment.
-      # See https://github.com/goanpeca/setup-miniconda#important.
+      # See https://github.com/conda-incubator/setup-miniconda#IMPORTANT.
       shell: bash -l {0}
       run: pip install .
 
@@ -31,15 +38,21 @@ jobs:
         pip install pyvinecopulib
         pytest tests/
 
+  gh-pages:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     # Install all dev dependencies to build notebooks etc.
-    - uses: goanpeca/setup-miniconda@v1
+    - uses: conda-incubator/setup-miniconda@v2
       with:
+        auto-update-conda: true
+        python-version: 3.8
         activate-environment: synthia
         environment-file: environment.yml
 
     - name: Install Synthia (dev env)
       # 'shell' required to activate environment.
-      # See https://github.com/goanpeca/setup-miniconda#important.
+      # See https://github.com/conda-incubator/setup-miniconda#IMPORTANT.
       shell: bash -l {0}
       run: pip install .
 

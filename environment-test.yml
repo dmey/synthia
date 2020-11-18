@@ -2,5 +2,4 @@ name: synthia-test
 channels:
   - defaults
 dependencies:
-  - python=3.8 # when changing this, also change setup.py
   - pytest
