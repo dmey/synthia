@@ -13,7 +13,6 @@ jobs:
         python-version: ['3.8', '3.9']
     steps:
     - uses: actions/checkout@v2
-
     - uses: conda-incubator/setup-miniconda@v2
       with:
         auto-update-conda: true
@@ -38,11 +37,15 @@ jobs:
         pip install pyvinecopulib
         pytest tests/
 
+  gh-pages:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     # Install all dev dependencies to build notebooks etc.
     - uses: conda-incubator/setup-miniconda@v2
       with:
         auto-update-conda: true
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.8
         activate-environment: synthia
         environment-file: environment.yml
 
@@ -57,7 +60,7 @@ jobs:
       run: sphinx-build -v -b html docs/ docs/_build
 
     - name: Publish docs
-      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.8' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
