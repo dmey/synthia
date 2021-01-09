@@ -17,7 +17,7 @@ The simplest example for a copula function is $C(u_1, \dots, u_d) = u_1 \times \
 
 To induce dependence in $F$, it is common to consider sub-families of copulas that are conveniently parametrized. There's a variety of such parametric copula families. The most prominent one is the *Gaussian copula*. It is defined by inversion of Sklar's theorem:
 
-$$C(z_1,\dots, z_d) = F(F_1^{-1}(z_1), \dots, F_d^{-1}(z_d)), $$
+$$C(u_1,\dots, u_d) = F(F_1^{-1}(u_1), \dots, F_d^{-1}(u_d)), $$
 
 where $F$ is a multivariate Gaussian distribution and $F_1, \dots, F_d$ the corresponding marginals. The Gaussian copula is then parameterized by a correlation matrix and subsumes all possible dependence structure in a multivariate Gaussian distribution. The benefit comes from the fact that we can combine a given copula with any type of marginal distributions, not just the ones the copula was derived from. That way, we can build flexible models with arbitrary marginal distributions and Gaussian-like dependence. 
 
