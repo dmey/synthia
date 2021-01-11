@@ -28,11 +28,13 @@ For installation instructions, getting started guides and tutorials, background 
 
 ## How to cite
 
-Please cite the software summary paper and software version using the following Digital Object Identifiers (DOIs) to [generate citations in your preferred style](https://citation.crosscite.org/):
+Please cite the application and software summary paper with version using the following Digital Object Identifiers (DOIs):
 
-| Software summary paper | Software version* |
-| ---------------------- | ----------------- |
-| *In Preparation*       | *In Preparation*  |
+| Application paper                    | Software summary paper | Software version* |
+| ------------------------------------ | ---------------------- | ----------------- |
+| https://doi.org/10.5194/gmd-2020-427 | *In Preparation*       | *In Preparation*  |
+
+You can use [DOI Citation Formatter](https://citation.crosscite.org/) to generate citations in your preferred style.
 
 *please make sure to cite the same version you are using with the correct DOI. For a list of all available versions see the list of available versions (In Preparation).
 
