@@ -8,7 +8,12 @@
 
 ## Overview
 
-Synthia is a tool for generating multidimensional data in Python. It has a simple and succinct API to natively handle [xarray](https://xarray.pydata.org)'s labelled arrays and datasets. It supports different methods of data generation such as [functional Principle Component Analysis (fPCA)](https://dmey.github.io/synthia/fpca.html), and parametric (Gaussian) and vine [copula models](https://dmey.github.io/synthia/copula.html) for continuous (all), discrete (vine), and categorical (vine) variables. For example, given some vertical profiles of atmospheric temperature, we can use Synthia to generate new but statistically similar profiles in just three lines of code (Table 1). For more information about the latest version of Synthia, please see the [website](https://dmey.github.io/synthia).
+Synthetic data need to preserve the statistical properties of real data in terms of their individual behavior and (inter-)dependences ([Meyer et al. 2021](https://doi.org/10.5194/gmd-2020-427)). [Copula](https://dmey.github.io/synthia/copula.html) and [functional Principle Component Analysis (fPCA)](https://dmey.github.io/synthia/fpca.html) are statistical models that allow these properties to be simulated ([Joe 2014](https://doi.org/10.1201/b17116)). As such, copula generated data have shown potential to improve the generalization of machine learning (ML) emulators ([Meyer et al. 2021](https://doi.org/10.5194/gmd-2020-427)) or anonymize real-data datasets ([Patki et al. 2016](https://doi.org/10.1109/DSAA.2016.49)).
+
+Synthia is an open source Python package to model univariate and multivariate data, parameterize data using empirical and parametric methods, and manipulate marginal distributions. It is designed to enable scientists and practitioners to handle labelled multivariate data typical of computational sciences. For example, given some vertical profiles of atmospheric temperature, we can use Synthia to generate new but statistically similar profiles in just three lines of code (Table 1).
+
+Synthia supports three methods of multivariate data generation through fPCA, parametric (Gaussian) copula, and vine copula models for continuous (all), discrete (vine), and categorical (vine) variables. It has a simple and succinct API to natively handle [xarray](https://xarray.pydata.org)'s labelled arrays and datasets. It uses a pure Python implementation for fPCA and Gaussian copula, and relies on the fast and well tested C++ library [vinecopulib](https://github.com/vinecopulib/vinecopulib) through [pyvinecopulib](https://github.com/vinecopulib/pyvinecopulib)'s bindings for fast and efficient computation of vines. For more information about the latest version of Synthia, please see the [website](https://dmey.github.io/synthia).
+
 
 **Table 1**. *Example application of Gaussian and fPCA classes in Synthia. These are used to generate random profiles of atmospheric temperature similar to those included in the source data. The xarray dataset structure is maintained and returned by Synthia.*
 
@@ -28,16 +33,35 @@ For installation instructions, getting started guides and tutorials, background 
 
 ## How to cite
 
-Please cite the application and software summary paper with version using the following Digital Object Identifiers (DOIs):
+When using Synthia, please cite the following two papers using the following Digital Object Identifiers (DOIs). You can generate citations in your preferred style with [DOI Citation Formatter](https://citation.crosscite.org/) or use the BibTeX entries below.
 
-| Application paper                    | Software summary paper | Software version* |
-| ------------------------------------ | ---------------------- | ----------------- |
-| https://doi.org/10.5194/gmd-2020-427 | *In Preparation*       | *In Preparation*  |
+| Software summary paper                                       | Software version    |
+| ------------------------------------------------------------ | ------------------- |
+| [10.5194/gmd-2020-427](https://doi.org/10.5194/gmd-2020-427) | 10.21105/joss.02863 |
 
-You can use [DOI Citation Formatter](https://citation.crosscite.org/) to generate citations in your preferred style.
+```tex
+@article{Meyer2021,
+  doi       = {10.5194/gmd-2020-427},
+  year      = {2021},
+  publisher = {Copernicus {GmbH}},
+  author    = {David Meyer and Thomas Nagler and Robin J. Hogan},
+  title     = {Copula-based synthetic data generation for machine learning emulators
+		in weather and climate: application to a simple radiation model},
+  note = {Under review}
+}
 
-*please make sure to cite the same version you are using with the correct DOI. For a list of all available versions see the list of available versions (In Preparation).
 
+@article{MeyerAndNagler2021,
+  title = {Synthia: multidimensional synthetic data generation in Python},
+  author = {David Meyer and Thomas Nagler},
+  year = {2021},
+  doi = {10.21105/joss.02863},
+  journal = {Journal of Open Source Software},
+  note = {Under review}
+}
+```
+
+**Note**: For reproducibility we recommend to cite the specific version of the software used.
 
 ## Contributing
 
