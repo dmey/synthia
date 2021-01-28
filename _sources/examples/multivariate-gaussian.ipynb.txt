@@ -1,0 +1,135 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Multivariate: Copulas"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Import libraries"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import xarray as xr\n",
+    "import seaborn as sns\n",
+    "import pyvinecopulib as pv\n",
+    "import synthia as syn\n",
+    "from scipy.stats import multivariate_normal\n",
+    "import warnings\n",
+    "warnings.filterwarnings('ignore')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Create a sample dataset with n samples"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "N_SAMPLES = 1000\n",
+    "mvnorm = multivariate_normal(mean=[0, 0], cov=[[1, 0.5],\n",
+    "                                               [0.5, 1]])\n",
+    "# Generate random samples from multivariate normal with correlation .5\n",
+    "data = xr.DataArray(mvnorm.rvs(N_SAMPLES))\n",
+    "\n",
+    "h = sns.jointplot(data[:, 0], data[:, 1], kind='scatter')\n",
+    "h.set_axis_labels('X1', 'X2', fontsize=16);"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Fit a Gaussian copula with Synthia's backend"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "generator = syn.CopulaDataGenerator()\n",
+    "\n",
+    "parameterizer = syn.QuantileParameterizer(n_quantiles=100)\n",
+    "\n",
+    "generator.fit(data, copula=syn.GaussianCopula(), parameterize_by=parameterizer)\n",
+    "\n",
+    "samples = generator.generate(n_samples=N_SAMPLES, uniformization_ratio=0, stretch_factor=2)\n",
+    "\n",
+    "h = sns.jointplot(samples[:, 0], samples[:, 1], kind='scatter')\n",
+    "h.set_axis_labels('X1', 'X2', fontsize=16);"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Fit a Gaussian copula with pyvinecopulib's backend"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "generator = syn.CopulaDataGenerator()\n",
+    "\n",
+    "parameterizer = syn.QuantileParameterizer(n_quantiles=100)\n",
+    "\n",
+    "ctrl = pv.FitControlsVinecop(family_set=[pv.BicopFamily.gaussian], select_trunc_lvl=True)\n",
+    "generator.fit(data, copula=syn.VineCopula(controls=ctrl), parameterize_by=parameterizer)\n",
+    "\n",
+    "samples = generator.generate(n_samples=N_SAMPLES)\n",
+    "\n",
+    "h = sns.jointplot(samples[:, 0], samples[:, 1], kind='scatter')\n",
+    "h.set_axis_labels('X1', 'X2', fontsize=16);"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
