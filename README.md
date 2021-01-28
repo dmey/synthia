@@ -35,7 +35,7 @@ For installation instructions, getting started guides and tutorials, background 
 
 When using Synthia, please cite the following two papers using the following Digital Object Identifiers (DOIs). You can generate citations in your preferred style with [DOI Citation Formatter](https://citation.crosscite.org/) or use the BibTeX entries below.
 
-| Software summary paper                                       | Software version    |
+| Application                                                  | Software            |
 | ------------------------------------------------------------ | ------------------- |
 | [10.5194/gmd-2020-427](https://doi.org/10.5194/gmd-2020-427) | 10.21105/joss.02863 |
 
