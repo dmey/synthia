@@ -7,13 +7,21 @@ from scipy.interpolate import PchipInterpolator
 from .parameterizer import Parameterizer
 
 class QuantileParameterizer(Parameterizer):
+    """Compresses the original data. Downsampling is performed
+    at fitting using quantiles and interpolation is perfomed at generation using
+    cubic interpolation.
+    """
     def __init__(self, n_quantiles: int) -> None:
         self.n_quantiles = n_quantiles
     
     def fit(self, data: np.ndarray) -> None:
+        """Downsamples by fitting quantile vector of user-defined size.
+        """
         self.quantiles = create_quantiles(data, self.n_quantiles)
 
     def generate(self, n_samples: int) -> np.ndarray:
+        """Generate samples vector using scipy.interpolate.PchipInterpolator.
+        """
         samples = interpolate(self.quantiles, n_samples)
         return samples
 

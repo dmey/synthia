@@ -8,8 +8,9 @@ from .parameterizer import Parameterizer
 from ..distribution import Distribution
 
 class DistributionParameterizer(Parameterizer):
-    """tbd
-
+    """Compresses the original data. Downsampling is performed
+    by fitting the "best" parametric distribution from those supported in scipy.
+    Generation is perfomed using the respective random varietes method in scipy.
     """
     def __init__(self, dist_names: Optional[Iterable[str]]=None, verbose=False):
         """Args:
