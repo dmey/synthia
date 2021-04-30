@@ -1,6 +1,6 @@
 {
     "title": "Synthia: multidimensional synthetic data generation in Python",
-    "description": "Synthia is multidimensional synthetic data generator written in Python for xarray's labelled arrays and datasets with support for parametric (Gaussian) and vine copulas models and functional principal component analysis (fPCA).",
+    "description": "<a href=\"https://github.com/dmey/synthia\">Synthia</a> is multidimensional synthetic data generator written in Python for xarray's labelled arrays and datasets with support for parametric (Gaussian) and vine copulas models and functional principal component analysis (fPCA).",
     "keywords": [
         "machine-learning",
         "data-science",
