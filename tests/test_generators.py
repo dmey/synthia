@@ -49,7 +49,7 @@ def test_independent_feature_generation_with_distribution():
 
     dist_names = set(syn.DistributionParameterizer.get_dist_names())
     # Remove all very slow distributions
-    dist_names -= set(['genexpon', 'levy_stable', 'recipinvgauss', 'vonmises', 'kstwo'])
+    dist_names -= set(['genexpon', 'levy_stable', 'recipinvgauss', 'vonmises', 'kstwo', 'studentized_range'])
 
     generator.fit(input_data, copula=syn.IndependenceCopula(), 
         parameterize_by=syn.DistributionParameterizer(dist_names, verbose=True))

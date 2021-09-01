@@ -22,4 +22,4 @@ dependencies:
   - sphinxcontrib-bibtex=1
   - sphinx-copybutton
   - pip:
-    - pyvinecopulib
+    - pyvinecopulib==0.5.5

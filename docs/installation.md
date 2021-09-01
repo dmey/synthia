@@ -17,7 +17,7 @@
 pip install synthia
 ```
 
-or with optional dependencies
+or with optional [pyvinecopulib](https://github.com/vinecopulib/pyvinecopulib):
 
 ```
 pip install synthia[full]

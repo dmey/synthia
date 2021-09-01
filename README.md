@@ -8,7 +8,7 @@
 
 ## Overview
 
-Synthetic data need to preserve the statistical properties of real data in terms of their individual behavior and (inter-)dependences ([Meyer et al. 2021](https://doi.org/10.5194/gmd-2020-427)). [Copula](https://dmey.github.io/synthia/copula.html) and [functional Principle Component Analysis (fPCA)](https://dmey.github.io/synthia/fpca.html) are statistical models that allow these properties to be simulated ([Joe 2014](https://doi.org/10.1201/b17116)). As such, copula generated data have shown potential to improve the generalization of machine learning (ML) emulators ([Meyer et al. 2021](https://doi.org/10.5194/gmd-2020-427)) or anonymize real-data datasets ([Patki et al. 2016](https://doi.org/10.1109/DSAA.2016.49)).
+Synthetic data need to preserve the statistical properties of real data in terms of their individual behavior and (inter-)dependences. [Copula](https://dmey.github.io/synthia/copula.html) and [functional Principle Component Analysis (fPCA)](https://dmey.github.io/synthia/fpca.html) are statistical models that allow these properties to be simulated ([Joe 2014](https://doi.org/10.1201/b17116)). As such, copula generated data have shown potential to improve the generalization of machine learning (ML) emulators ([Meyer et al. 2021](https://doi.org/10.5194/gmd-14-5205-2021)) or anonymize real-data datasets ([Patki et al. 2016](https://doi.org/10.1109/DSAA.2016.49)).
 
 Synthia is an open source Python package to model univariate and multivariate data, parameterize data using empirical and parametric methods, and manipulate marginal distributions. It is designed to enable scientists and practitioners to handle labelled multivariate data typical of computational sciences. For example, given some vertical profiles of atmospheric temperature, we can use Synthia to generate new but statistically similar profiles in just three lines of code (Table 1).
 
@@ -33,14 +33,14 @@ For installation instructions, getting started guides and tutorials, background 
 
 ## How to cite
 
-If you are using Synthia, please cite the following two papers using their respective Digital Object Identifiers (DOIs). Citations may be generated automatically using Crosscite's [DOI Citation Formatter](https://citation.crosscite.org/) or from the BibTeX entries below. If needed, you may also cite the specific software version with [its corresponding Zendo DOI](https://doi.org/10.5281/zenodo.4701278). 
+If you are using Synthia, please cite the following two papers using their respective Digital Object Identifiers (DOIs). Citations may be generated automatically using Crosscite's [DOI Citation Formatter](https://citation.crosscite.org/) or from the BibTeX entries below.
 
-| Synthia Software                   | Software Application                                              |
-| ---------------------------------- | ----------------------------------------------------------------- |
-| DOI: 10.21105/joss.02863 | DOI: [10.5194/gmd-2020-427](https://doi.org/10.5194/gmd-2020-427) |
+| Synthia Software                   | Software Application                                                      |
+| ---------------------------------- | ------------------------------------------------------------------------- |
+| DOI: 10.21105/joss.02863           | DOI: [10.5194/gmd-14-5205-2021](https://doi.org/10.5194/gmd-14-5205-2021) |
 
 ```bibtex
-@article{Meyer_Nagler_2021,
+@article{Meyer_and_Nagler_2021,
   title   = {Synthia: multidimensional synthetic data generation in Python},
   author  = {David Meyer and Thomas Nagler},
   year    = {2021},
@@ -49,17 +49,22 @@ If you are using Synthia, please cite the following two papers using their respe
   note    = {Under review}
 }
 
-@article{Meyer_Nagler_Hogan_2021,
-  title   = {Copula-Based Synthetic Data Generation for Machine Learning Emulators in Weather and Climate: Application to a Simple Radiation Model},
-  author  = {David Meyer and Thomas Nagler and Robin J. Hogan},
-  year    = {2021},
-  volume  = {2021},
-  doi     = {10.5194/gmd-2020-427},
-  journal = {Geoscientific Model Development Discussions},
-  note    = {Under review}
+@article{Meyer_and_Nagler_and_Hogan_2021,
+  doi = {10.5194/gmd-14-5205-2021},
+  url = {https://doi.org/10.5194/gmd-14-5205-2021},
+  year = {2021},
+  month = aug,
+  publisher = {Copernicus {GmbH}},
+  volume = {14},
+  number = {8},
+  pages = {5205--5215},
+  author = {David Meyer and Thomas Nagler and Robin J. Hogan},
+  title = {Copula-based synthetic data augmentation for machine-learning emulators},
+  journal = {Geoscientific Model Development}
 }
 ```
 
+If needed, you may also cite the specific software version with [its corresponding Zendo DOI](https://doi.org/10.5281/zenodo.4701278). 
 
 ## Contributing
 
