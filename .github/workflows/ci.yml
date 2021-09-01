@@ -31,11 +31,11 @@ jobs:
       shell: bash -l {0}
       run: pytest tests/
 
-    - name: Run tests with pyvinecopulib
+    - name: Run tests with pyvinecopulib==0.5.5
       shell: bash -l {0}
       run: |
         set -ex
-        pip install pyvinecopulib
+        pip install pyvinecopulib==0.5.5
         pytest tests/
 
   gh-pages:
