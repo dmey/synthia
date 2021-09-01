@@ -29,6 +29,6 @@ setup(
         "bottleneck", # required by xarray.DataArray.rank
     ],
     extras_require = {
-        "full":  ["pyvinecopulib"]
+        "full":  ["pyvinecopulib==0.5.5"]
     }
 )
