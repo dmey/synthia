@@ -10,6 +10,7 @@ Generation
     examples/univariate
     examples/multivariate-independent
     examples/multivariate-gaussian
+    examples/multivariate-vine
     examples/fpca
     examples/discrete-and-categorical
 

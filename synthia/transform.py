@@ -25,7 +25,8 @@ class Transformer(metaclass=ABCMeta):
 
 
 class BoxCoxTransformer(Transformer):
-    """ Assumption: the first dimension is samples and all others are features.
+    """Preview: Performs Box Cox tranformations on original data. 
+    Assumption: the first dimension is samples and all others are features.
     I.e. transformations will be done per feature.
     """
     def __init__(self, var_names, lmbda, boundary_location='left'):
@@ -85,7 +86,8 @@ class BoxCoxTransformer(Transformer):
 
 
 class ArcTanhTransformer(Transformer):
-    """ Assumption: the first dimension is samples and all others are features.
+    """Preview: Performs inverse hyperbolic tangent tranformations on original data. 
+    Assumption: the first dimension is samples and all others are features.
     I.e. transformations will be done per feature.
     """
     def __init__(self, var_names):
@@ -125,6 +127,8 @@ class ArcTanhTransformer(Transformer):
         return ds
 
 class CombinedTransformer(Transformer):
+    """Preview: Performs combined tranformations.
+    """
     def __init__(self, transformers):
         self.transformers = transformers
 

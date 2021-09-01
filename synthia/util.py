@@ -240,13 +240,10 @@ def load_dataset(name='SAF-Synthetic') -> xr.Dataset:
     These were fitted with 6 fPCA componenets in Synthia version 0.2.0.
     """
     from urllib.request import urlopen
-    import pickle
     
     if name != 'SAF-Synthetic':
         raise RuntimeError('Only SAF-Synthetic is currently supported')
 
-    url = 'https://raw.githubusercontent.com/dmey/synthia/data/generator_saf_temperature_fpca_6.pkl'
-    generator = pickle.load(urlopen(url))
-    N_SAMPLES = 25000
-    ds = generator.generate(N_SAMPLES)
+    url = 'https://raw.githubusercontent.com/dmey/synthia/data/generator_saf_temperature_fpca_6.nc'
+    ds = xr.load_dataset(urlopen(url).read())
     return ds

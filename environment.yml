@@ -3,6 +3,7 @@ channels:
   - defaults
   - conda-forge
 dependencies:
+  - python=3.8
   - pytest
   - numpy
   - scipy
@@ -18,7 +19,7 @@ dependencies:
   - sphinx_rtd_theme
   - myst-parser
   - nbsphinx
-  - sphinxcontrib-bibtex
+  - sphinxcontrib-bibtex=1
   - sphinx-copybutton
   - pip:
     - pyvinecopulib
