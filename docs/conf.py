@@ -47,7 +47,7 @@ copy_overview(PROJ_DIR / 'README.md', PROJ_DIR / 'docs' / 'overview.md', True)
 project = 'synthia'
 copyright = '2020 D. Meyer and T. Nagler'
 author = 'D. Meyer and T. Nagler'
-release = '1.0.0'
+release = '1.1.0'
 
 html_context = {
   'display_github': True,

@@ -17,6 +17,7 @@ During development:
 
 ```
 pip install -e .[full]
+pip install pytest
 ```
 
 

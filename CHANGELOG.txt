@@ -1,3 +1,13 @@
+1.1.0
+- Pin to specific pyvinecopulib version to avoid issues between versions.
+- Add CI tests for Python 3.9 (#17).
+- Minor doc improvements.
+
+1.0.0
+- Add JOSS summary paper (#26).
+- Improve docs and tutorials (#14, #13, #18, ...).
+- Enable CI on multiple OS and Python versions (#16).
+
 0.3.0
 - Add support for handling categorical quantities (#10, #13).
 

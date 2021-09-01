@@ -50,6 +50,9 @@ jobs:
         activate-environment: synthia
         environment-file: environment.yml
 
+    - name: Install pandoc
+      run: sudo apt-get install pandoc
+
     - name: Install Synthia (dev env)
       # 'shell' required to activate environment.
       # See https://github.com/conda-incubator/setup-miniconda#IMPORTANT.
