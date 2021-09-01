@@ -16,7 +16,7 @@ Then activate with `conda activate synthia`.
 During development:
 
 ```
-pip install -e .
+pip install -e .[full]
 ```
 
 
