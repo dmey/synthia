@@ -1,5 +1,5 @@
 1.1.0
-- Pin to specific pyvinecopulib version to avoid issues between versions.
+- Pin pyvinecopulib version to avoid issues between versions.
 - Add CI tests for Python 3.9 (#17).
 - Minor doc improvements.
 
