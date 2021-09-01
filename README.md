@@ -35,9 +35,9 @@ For installation instructions, getting started guides and tutorials, background 
 
 If you are using Synthia, please cite the following two papers using their respective Digital Object Identifiers (DOIs). Citations may be generated automatically using Crosscite's [DOI Citation Formatter](https://citation.crosscite.org/) or from the BibTeX entries below.
 
-| Synthia Software                   | Software Application                                              |
-| ---------------------------------- | ----------------------------------------------------------------- |
-| DOI: 10.21105/joss.02863           | DOI: [10.5194/gmd-2020-427](https://doi.org/10.5194/gmd-2020-427) |
+| Synthia Software                   | Software Application                                                      |
+| ---------------------------------- | ------------------------------------------------------------------------- |
+| DOI: 10.21105/joss.02863           | DOI: [10.5194/gmd-14-5205-2021](https://doi.org/10.5194/gmd-14-5205-2021) |
 
 ```bibtex
 @article{Meyer_and_Nagler_2021,
@@ -49,7 +49,7 @@ If you are using Synthia, please cite the following two papers using their respe
   note    = {Under review}
 }
 
-@article{Meyer_Nagler_and_Hogan_2021,
+@article{Meyer_and_Nagler_and_Hogan_2021,
   doi = {10.5194/gmd-14-5205-2021},
   url = {https://doi.org/10.5194/gmd-14-5205-2021},
   year = {2021},
