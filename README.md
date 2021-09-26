@@ -1,7 +1,7 @@
 <div align="center">
   <img src="assets/img/logo.png" alt="synthia" height="120"><br><br>
 
-  [![PyPI](https://img.shields.io/pypi/v/synthia)](https://pypi.org/project/synthia) [![CI](https://github.com/dmey/synthia/workflows/CI/badge.svg)](https://github.com/dmey/synthia/actions)
+  [![PyPI](https://img.shields.io/pypi/v/synthia)](https://pypi.org/project/synthia) [![CI](https://github.com/dmey/synthia/workflows/CI/badge.svg)](https://github.com/dmey/synthia/actions) [![DOI](https://joss.theoj.org/papers/10.21105/joss.02863/status.svg)](https://doi.org/10.21105/joss.02863)
 
   [Overview](#overview) | [Documentation](#documentation) | [How to cite](#how-to-cite) | [Contributing](#contributing) | [Development notes](#development-notes) | [Copyright and license](#copyright-and-license) | [Acknowledgements](#acknowledgements)
 </div>
@@ -35,25 +35,28 @@ For installation instructions, getting started guides and tutorials, background 
 
 If you are using Synthia, please cite the following two papers using their respective Digital Object Identifiers (DOIs). Citations may be generated automatically using Crosscite's [DOI Citation Formatter](https://citation.crosscite.org/) or from the BibTeX entries below.
 
-| Synthia Software                   | Software Application                                                      |
-| ---------------------------------- | ------------------------------------------------------------------------- |
-| DOI: 10.21105/joss.02863           | DOI: [10.5194/gmd-14-5205-2021](https://doi.org/10.5194/gmd-14-5205-2021) |
+| Synthia Software                                                | Software Application                                                      |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| DOI: [10.21105/joss.02863](https://doi.org/10.21105/joss.02863) | DOI: [10.5194/gmd-14-5205-2021](https://doi.org/10.5194/gmd-14-5205-2021) |
 
 ```bibtex
 @article{Meyer_and_Nagler_2021,
-  title   = {Synthia: multidimensional synthetic data generation in Python},
-  author  = {David Meyer and Thomas Nagler},
-  year    = {2021},
-  doi     = {10.21105/joss.02863},
-  journal = {Journal of Open Source Software},
-  note    = {Under review}
+  doi = {10.21105/joss.02863},
+  url = {https://doi.org/10.21105/joss.02863},
+  year = {2021},
+  publisher = {The Open Journal},
+  volume = {6},
+  number = {65},
+  pages = {2863},
+  author = {David Meyer and Thomas Nagler},
+  title = {Synthia: multidimensional synthetic data generation in Python},
+  journal = {Journal of Open Source Software}
 }
 
 @article{Meyer_and_Nagler_and_Hogan_2021,
   doi = {10.5194/gmd-14-5205-2021},
   url = {https://doi.org/10.5194/gmd-14-5205-2021},
   year = {2021},
-  month = aug,
   publisher = {Copernicus {GmbH}},
   volume = {14},
   number = {8},
