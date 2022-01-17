@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Copulas &mdash; synthia 1.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Functional Principal Component Analysis (fPCA)" href="fpca.html" />
+    <link rel="prev" title="Stretching and Uniformization" href="examples/enhancement.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#required-dependencies">Required dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#optional-dependencies">Optional dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#instructions">Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Load-required-modules">Load required modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Load-and-plot-sample-data">Load and plot sample data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Fit-and-generate-1000-random-samples-using-Gaussian-copula">Fit and generate 1000 random samples using Gaussian copula</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Fit-and-generate-1000-random-samples-using-fPCA">Fit and generate 1000 random samples using fPCA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#generation">Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/univariate.html">Univariate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Load-sample-data">Load sample data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Fit-and-generate-using-samples">Fit and generate using samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Fit-and-generate-using-parametrized-distribution">Fit and generate using parametrized distribution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Stretching-and-unifomization">Stretching and unifomization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Exporting-and-saving-generated-data">Exporting and saving generated data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Saving-the-generator">Saving the generator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-independent.html">Multivariate: Independent</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Create-test-data">Create test data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Generate-synthetic-data">Generate synthetic data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Generate-synthetic-data-with-modified-characteristics">Generate synthetic data with modified characteristics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Parameterize-data-using-quantiles">Parameterize data using quantiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Parameterize-data-using-distributions">Parameterize data using distributions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-gaussian.html">Multivariate: Gaussian Copulas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Create-a-sample-dataset-with-n-samples">Create a sample dataset with n samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Fit-a-Gaussian-copula-with-Synthia’s-backend">Fit a Gaussian copula with Synthia’s backend</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-vine.html">Multivariate: Vine Copulas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Create-a-sample-dataset-with-n-samples">Create a sample dataset with n samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Fit-a-Vine-copula-with-pyvinecopulib’s-backend">Fit a Vine copula with pyvinecopulib’s backend</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/fpca.html">Multivariate: fPCA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Plot-source-data">Plot source data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Fit-the-fPCA-model-using-10-components">Fit the fPCA model using 10 components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Generate-same-number-of-samples-as-in-the-input">Generate same number of samples as in the input</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Plot-the-results">Plot the results</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/discrete-and-categorical.html">Multivariate: Discrete and Categorical</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Generate-dummy-data">Generate dummy data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Fit-and-generate-new-samples">Fit and generate new samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#enhancement">Enhancement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/enhancement.html">Stretching and Uniformization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Plot-source-data">Plot source data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Fit-copula-to-data">Fit copula to data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Generate-‘streatched’-samples">Generate ‘streatched’ samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Generate-‘more-uniformly-distributed’-samples">Generate ‘more uniformly distributed’ samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Copulas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-copulas-are">What copulas are</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-gaussian-copula">The Gaussian copula</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-copula-families">Other copula families</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vine-copulas">Vine copulas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fpca.html">Functional Principal Component Analysis (fPCA)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#the-general-idea">The general idea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#mathematical-definition">Mathematical definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#pca-as-a-basis-expansion">PCA as a basis expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#pca-for-synthetic-data-generation">PCA for synthetic data generation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Help &amp; reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#data-generators">Data generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#copulas">Copulas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#parameterizers">Parameterizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#transformers">Transformers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-synthia.util">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">How to cite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">Development notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#conda-environment">Conda environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#install-synthia">Install synthia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#versioning">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#deployment">Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Copyright &amp; License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">synthia</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Copulas</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/dmey/synthia/blob/master/docs/copula.md" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="copulas">
+<h1>Copulas<a class="headerlink" href="#copulas" title="Permalink to this headline">¶</a></h1>
+<section id="what-copulas-are">
+<h2>What copulas are<a class="headerlink" href="#what-copulas-are" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Copula_(probability_theory)">Copulas</a> are probabilistic models for the dependence between random quantities <span class="math notranslate nohighlight">\(Z_1, \dots, Z_d\)</span>. The idea is to
+decouple the individual (or marginal) behavior of the quantities from the dependence.
+The key result, Sklar’s theorem  <a class="bibtex reference internal" href="#sklar1959" id="id1">[Skl59]</a>, states that for any joint distribution <span class="math notranslate nohighlight">\(F\)</span> on <span class="math notranslate nohighlight">\(d\)</span> variables can be written as</p>
+<div class="math notranslate nohighlight">
+\[F(z_1,\dots, z_d) = C(F_1(z_1), \dots,F_d(z_d)), \]</div>
+<p>where <span class="math notranslate nohighlight">\(F_1, \dots, F_d\)</span> are the marginal distribution functions and <span class="math notranslate nohighlight">\(C\)</span> is the <em>copula</em> function. The copula encodes all the information that is not contained in the marginals, i.e., the dependence between variables.
+The simplest example for a copula function is <span class="math notranslate nohighlight">\(C(u_1, \dots, u_d) = u_1 \times \cdots \times u_d\)</span> which corresponds to independence: <span class="math notranslate nohighlight">\(F(z_1,\dots, z_d) = F_1(z_1) \times \cdots \times F_d(z_d)\)</span>.</p>
+</section>
+<section id="the-gaussian-copula">
+<h2>The Gaussian copula<a class="headerlink" href="#the-gaussian-copula" title="Permalink to this headline">¶</a></h2>
+<p>To induce dependence in <span class="math notranslate nohighlight">\(F\)</span>, it is common to consider sub-families of copulas that are conveniently parametrized. There’s a variety of such parametric copula families. The most prominent one is the <em>Gaussian copula</em>. It is defined by inversion of Sklar’s theorem:</p>
+<div class="math notranslate nohighlight">
+\[C(u_1,\dots, u_d) = F(F_1^{-1}(u_1), \dots, F_d^{-1}(u_d)), \]</div>
+<p>where <span class="math notranslate nohighlight">\(F\)</span> is a multivariate Gaussian distribution and <span class="math notranslate nohighlight">\(F_1, \dots, F_d\)</span> the corresponding marginals. The Gaussian copula is then parameterized by a correlation matrix and subsumes all possible dependence structure in a multivariate Gaussian distribution. The benefit comes from the fact that we can combine a given copula with any type of marginal distributions, not just the ones the copula was derived from. That way, we can build flexible models with arbitrary marginal distributions and Gaussian-like dependence.</p>
+</section>
+<section id="other-copula-families">
+<h2>Other copula families<a class="headerlink" href="#other-copula-families" title="Permalink to this headline">¶</a></h2>
+<p>The same principle applies to other multivariate distributions and many copula models have been derived, most prominently the Student t copula and Archimedean families. A comprehensive list can be found in <a class="bibtex reference internal" href="#joe2014dependence" id="id2">[Joe14]</a>. When there are more than two variables (<span class="math notranslate nohighlight">\(d&gt;2\)</span>) the types of dependence structures these models can generate is rather limited. For example, Gaussian and Student copulas only allow for symmetric dependencies. While Archimedean families allow for such asymmetries, they require all pairs of variables to have the same type and strength of dependence.</p>
+</section>
+<section id="vine-copulas">
+<h2>Vine copulas<a class="headerlink" href="#vine-copulas" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Vine_copula">Vine copula models</a> (<a class="bibtex reference internal" href="#aas2009pair" id="id3">[ACFB09]</a>, <a class="bibtex reference internal" href="#czado2019analyzing" id="id4">[Cza19]</a>) are a popular solution to this issue. The idea is to build a large dependence model from only two-dimensional building blocks. We can explain this with a simple example with just three variables <span class="math notranslate nohighlight">\(Z_1, Z_2, Z_3\)</span>.</p>
+<p>We model the dependence between <span class="math notranslate nohighlight">\(Z_1\)</span> and <span class="math notranslate nohighlight">\(Z_2\)</span> by a two-dimensional copula
+<span class="math notranslate nohighlight">\(C_{1,2}\)</span> and the dependence between <span class="math notranslate nohighlight">\(Z_2\)</span> and <span class="math notranslate nohighlight">\(Z_3\)</span> by another, possibly different, copula <span class="math notranslate nohighlight">\(C_{2,3}\)</span>. These two copulas already contain some information about the dependence between <span class="math notranslate nohighlight">\(Z_1\)</span> and <span class="math notranslate nohighlight">\(Z_3\)</span>, the part of the dependence that is induced by <span class="math notranslate nohighlight">\(Z_2\)</span>. The missing piece is the dependence between <span class="math notranslate nohighlight">\(Z_1\)</span> and <span class="math notranslate nohighlight">\(Z_3\)</span> after the effect of <span class="math notranslate nohighlight">\(Z_2\)</span> has been removed. Mathematically, this is the conditional dependence <span class="math notranslate nohighlight">\(Z_1\)</span> and <span class="math notranslate nohighlight">\(Z_3\)</span> given
+<span class="math notranslate nohighlight">\(Z_2\)</span> and can be modeled by yet another two-dimensional copula
+<span class="math notranslate nohighlight">\(C_{1,3|2}\)</span>. The principle is easily extended to an arbitrary number of variables <span class="math notranslate nohighlight">\(Z_1, \dots, Z_d\)</span>.</p>
+<p>Because all two-dimensional copulas can be specified independently, such models are extremely flexible and allow for highly heterogeneous dependence structures. Algorithms for simulation and selecting the right conditioning order and parametric families for each (conditional) pair are given in <a class="bibtex reference internal" href="#dissmann2013" id="id5">[DBCK13]</a>. Using parametric models for pair-wise dependencies remain a limiting factor, however. If necessary, it is also possible to use nonparametric models for the two-dimensional building blocks, see <a class="bibtex reference internal" href="#nagler2017" id="id6">[NSC17]</a>.</p>
+<p id="bibtex-bibliography-copula-0"><dl class="bibtex citation">
+<dt class="bibtex label" id="aas2009pair"><span class="brackets"><a class="fn-backref" href="#id3">ACFB09</a></span></dt>
+<dd><p>Kjersti Aas, Claudia Czado, Arnoldo Frigessi, and Henrik Bakken. Pair-copula constructions of multiple dependence. <em>Insurance: Mathematics and economics</em>, 44(2):182–198, 2009.</p>
+</dd>
+<dt class="bibtex label" id="czado2019analyzing"><span class="brackets"><a class="fn-backref" href="#id4">Cza19</a></span></dt>
+<dd><p>Claudia Czado. <em>Analyzing Dependent Data with Vine Copulas. Lecture Notes in Statistics</em>. Volume 222. Springer International Publishing, 2019.</p>
+</dd>
+<dt class="bibtex label" id="dissmann2013"><span class="brackets"><a class="fn-backref" href="#id5">DBCK13</a></span></dt>
+<dd><p>Jeffrey Dissmann, Eike C Brechmann, Claudia Czado, and Dorota Kurowicka. Selecting and estimating regular vine copulae and application to financial returns. <em>Computational Statistics &amp; Data Analysis</em>, 59:52–69, 2013.</p>
+</dd>
+<dt class="bibtex label" id="joe2014dependence"><span class="brackets"><a class="fn-backref" href="#id2">Joe14</a></span></dt>
+<dd><p>Harry Joe. <em>Dependence modeling with copulas</em>. Chapman and Hall/CRC, 2014.</p>
+</dd>
+<dt class="bibtex label" id="nagler2017"><span class="brackets"><a class="fn-backref" href="#id6">NSC17</a></span></dt>
+<dd><p>Thomas Nagler, Christian Schellhase, and Claudia Czado. Nonparametric estimation of simplified vine copula models: comparison of methods. <em>Dependence Modeling</em>, 5(1):99–120, 2017.</p>
+</dd>
+<dt class="bibtex label" id="sklar1959"><span class="brackets"><a class="fn-backref" href="#id1">Skl59</a></span></dt>
+<dd><p>A. Sklar. <em>Fonctions de répartition à n dimensions et leurs marges</em>. Université Paris 8, 1959.</p>
+</dd>
+</dl>
+</p>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="fpca.html" class="btn btn-neutral float-right" title="Functional Principal Component Analysis (fPCA)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="examples/enhancement.html" class="btn btn-neutral float-left" title="Stretching and Uniformization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020 D. Meyer and T. Nagler
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

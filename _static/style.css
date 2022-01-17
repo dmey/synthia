@@ -1,0 +1,75 @@
+@import url("theme.css");
+
+.wy-side-nav-search>a img.logo,
+.wy-side-nav-search .wy-dropdown>a img.logo {
+  width: 12rem
+}
+
+.wy-side-nav-search {
+  background-color: #eee;
+}
+
+.wy-side-nav-search>div.version {
+  display: none;
+}
+
+.wy-nav-top {
+  background-color: #555;
+}
+
+table.colwidths-given {
+    table-layout: fixed;
+    width: 100%;
+}
+table.docutils td {
+    white-space: unset;
+    word-wrap: break-word;
+}
+
+/* CSS to fix Mathjax equation numbers displaying above.
+ *
+ * Credit to @hagenw https://github.com/readthedocs/sphinx_rtd_theme/pull/383
+ */
+div.math {
+	position: relative;
+	padding-right: 2.5em;
+}
+.eqno {
+	height: 100%;
+	position: absolute;
+	right: 0;
+	padding-left: 5px;
+	padding-bottom: 5px;
+	/* Fix for mouse over in Firefox */
+	padding-right: 1px;
+}
+.eqno:before {
+	/* Force vertical alignment of number */
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+	content: "";
+}
+.eqno .headerlink {
+	display: none;
+	visibility: hidden;
+	font-size: 14px;
+}
+.eqno:hover .headerlink {
+	display: inline-block;
+	visibility: hidden;
+}
+.eqno .headerlink:after {
+	display: inline-block;
+	visibility: visible;
+	content: "\f0c1";
+	font-family: FontAwesome;
+	margin-left: -.6em;
+}
+
+/* Make responsive */
+.MathJax_Display {
+	max-width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+}

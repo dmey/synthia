@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Search &mdash; synthia 1.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/searchtools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="#" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#required-dependencies">Required dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#optional-dependencies">Optional dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#instructions">Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Load-required-modules">Load required modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Load-and-plot-sample-data">Load and plot sample data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Fit-and-generate-1000-random-samples-using-Gaussian-copula">Fit and generate 1000 random samples using Gaussian copula</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Fit-and-generate-1000-random-samples-using-fPCA">Fit and generate 1000 random samples using fPCA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#generation">Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/univariate.html">Univariate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Load-sample-data">Load sample data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Fit-and-generate-using-samples">Fit and generate using samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Fit-and-generate-using-parametrized-distribution">Fit and generate using parametrized distribution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Stretching-and-unifomization">Stretching and unifomization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Exporting-and-saving-generated-data">Exporting and saving generated data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Saving-the-generator">Saving the generator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-independent.html">Multivariate: Independent</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Create-test-data">Create test data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Generate-synthetic-data">Generate synthetic data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Generate-synthetic-data-with-modified-characteristics">Generate synthetic data with modified characteristics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Parameterize-data-using-quantiles">Parameterize data using quantiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Parameterize-data-using-distributions">Parameterize data using distributions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-gaussian.html">Multivariate: Gaussian Copulas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Create-a-sample-dataset-with-n-samples">Create a sample dataset with n samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Fit-a-Gaussian-copula-with-Synthia’s-backend">Fit a Gaussian copula with Synthia’s backend</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-vine.html">Multivariate: Vine Copulas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Create-a-sample-dataset-with-n-samples">Create a sample dataset with n samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Fit-a-Vine-copula-with-pyvinecopulib’s-backend">Fit a Vine copula with pyvinecopulib’s backend</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/fpca.html">Multivariate: fPCA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Plot-source-data">Plot source data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Fit-the-fPCA-model-using-10-components">Fit the fPCA model using 10 components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Generate-same-number-of-samples-as-in-the-input">Generate same number of samples as in the input</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Plot-the-results">Plot the results</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/discrete-and-categorical.html">Multivariate: Discrete and Categorical</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Generate-dummy-data">Generate dummy data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Fit-and-generate-new-samples">Fit and generate new samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#enhancement">Enhancement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/enhancement.html">Stretching and Uniformization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Plot-source-data">Plot source data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Fit-copula-to-data">Fit copula to data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Generate-‘streatched’-samples">Generate ‘streatched’ samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Generate-‘more-uniformly-distributed’-samples">Generate ‘more uniformly distributed’ samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="copula.html">Copulas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#what-copulas-are">What copulas are</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#the-gaussian-copula">The Gaussian copula</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#other-copula-families">Other copula families</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#vine-copulas">Vine copulas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fpca.html">Functional Principal Component Analysis (fPCA)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#the-general-idea">The general idea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#mathematical-definition">Mathematical definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#pca-as-a-basis-expansion">PCA as a basis expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#pca-for-synthetic-data-generation">PCA for synthetic data generation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Help &amp; reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#data-generators">Data generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#copulas">Copulas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#parameterizers">Parameterizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#transformers">Transformers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-synthia.util">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">How to cite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">Development notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#conda-environment">Conda environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#install-synthia">Install synthia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#versioning">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#deployment">Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Copyright &amp; License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">synthia</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Search</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/dmey/synthia/blob/master/docs/search" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <noscript>
+  <div id="fallback" class="admonition warning">
+    <p class="last">
+      Please activate JavaScript to enable the search
+      functionality.
+    </p>
+  </div>
+  </noscript>
+
+  
+  <div id="search-results">
+  
+  </div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020 D. Meyer and T. Nagler
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+  <script type="text/javascript">
+    jQuery(function() { Search.loadIndex("searchindex.js"); });
+  </script>
+  
+  <script type="text/javascript" id="searchindexloader"></script>
+   
+
+
+</body>
+</html>

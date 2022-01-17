@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Functional Principal Component Analysis (fPCA) &mdash; synthia 1.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API reference" href="api.html" />
+    <link rel="prev" title="Copulas" href="copula.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#required-dependencies">Required dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#optional-dependencies">Optional dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#instructions">Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Load-required-modules">Load required modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Load-and-plot-sample-data">Load and plot sample data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Fit-and-generate-1000-random-samples-using-Gaussian-copula">Fit and generate 1000 random samples using Gaussian copula</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Fit-and-generate-1000-random-samples-using-fPCA">Fit and generate 1000 random samples using fPCA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#generation">Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/univariate.html">Univariate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Load-sample-data">Load sample data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Fit-and-generate-using-samples">Fit and generate using samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Fit-and-generate-using-parametrized-distribution">Fit and generate using parametrized distribution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Stretching-and-unifomization">Stretching and unifomization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Exporting-and-saving-generated-data">Exporting and saving generated data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Saving-the-generator">Saving the generator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-independent.html">Multivariate: Independent</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Create-test-data">Create test data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Generate-synthetic-data">Generate synthetic data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Generate-synthetic-data-with-modified-characteristics">Generate synthetic data with modified characteristics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Parameterize-data-using-quantiles">Parameterize data using quantiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Parameterize-data-using-distributions">Parameterize data using distributions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-gaussian.html">Multivariate: Gaussian Copulas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Create-a-sample-dataset-with-n-samples">Create a sample dataset with n samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Fit-a-Gaussian-copula-with-Synthia’s-backend">Fit a Gaussian copula with Synthia’s backend</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-vine.html">Multivariate: Vine Copulas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Create-a-sample-dataset-with-n-samples">Create a sample dataset with n samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Fit-a-Vine-copula-with-pyvinecopulib’s-backend">Fit a Vine copula with pyvinecopulib’s backend</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/fpca.html">Multivariate: fPCA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Plot-source-data">Plot source data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Fit-the-fPCA-model-using-10-components">Fit the fPCA model using 10 components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Generate-same-number-of-samples-as-in-the-input">Generate same number of samples as in the input</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Plot-the-results">Plot the results</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/discrete-and-categorical.html">Multivariate: Discrete and Categorical</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Generate-dummy-data">Generate dummy data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Fit-and-generate-new-samples">Fit and generate new samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#enhancement">Enhancement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/enhancement.html">Stretching and Uniformization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Plot-source-data">Plot source data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Fit-copula-to-data">Fit copula to data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Generate-‘streatched’-samples">Generate ‘streatched’ samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Generate-‘more-uniformly-distributed’-samples">Generate ‘more uniformly distributed’ samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="copula.html">Copulas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#what-copulas-are">What copulas are</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#the-gaussian-copula">The Gaussian copula</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#other-copula-families">Other copula families</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#vine-copulas">Vine copulas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Functional Principal Component Analysis (fPCA)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-general-idea">The general idea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mathematical-definition">Mathematical definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pca-as-a-basis-expansion">PCA as a basis expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pca-for-synthetic-data-generation">PCA for synthetic data generation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Help &amp; reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#data-generators">Data generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#copulas">Copulas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#parameterizers">Parameterizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#transformers">Transformers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-synthia.util">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">How to cite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">Development notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#conda-environment">Conda environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#install-synthia">Install synthia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#versioning">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#deployment">Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Copyright &amp; License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">synthia</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Functional Principal Component Analysis (fPCA)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/dmey/synthia/blob/master/docs/fpca.md" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section class="tex2jax_ignore mathjax_ignore" id="functional-principal-component-analysis-fpca">
+<h1>Functional Principal Component Analysis (fPCA)<a class="headerlink" href="#functional-principal-component-analysis-fpca" title="Permalink to this headline">¶</a></h1>
+<section id="the-general-idea">
+<h2>The general idea<a class="headerlink" href="#the-general-idea" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">Principal component analysis (PCA)</a> is popular technique for dimensionality reduction and data compression. The idea is to find the directions in a high-dimensional space in which we find the most variation in the data. To reduce dimensionality (or compress the data), we then only look at projections on the first few principal directions.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Functional_principal_component_analysis">Functional principal component analysis (fPCA)</a> is an extension of this method to situations where data consist of functions, not vectors. Although mathematically more involved than regular PCA, the two are equivalent from a practical point of view. To keep it simple, we shall therefore explain the core ideas in terms of the regular PCA.</p>
+</section>
+<section id="mathematical-definition">
+<h2>Mathematical definition<a class="headerlink" href="#mathematical-definition" title="Permalink to this headline">¶</a></h2>
+<p>Suppose each observation in the data is a vector <span class="math notranslate nohighlight">\(X\)</span>. The first principal component is defined as the direction <span class="math notranslate nohighlight">\(w\)</span> in which there’s the most variation:</p>
+<div class="math notranslate nohighlight">
+\[v_1 = \arg\max_{\|v\| = 1} \mathrm{var}[X'v].\]</div>
+<p>In practice, the variance of <span class="math notranslate nohighlight">\(X'v\)</span> is approximated by the <a class="reference external" href="https://en.wikipedia.org/wiki/Variance#Sample_variance">sample variance</a>. The other principal components are defined similarly,</p>
+<div class="math notranslate nohighlight">
+\[v_k = \arg\max_{\|v\| = 1} \mathrm{var}[X'v],\]</div>
+<p>under the side-constraint that <span class="math notranslate nohighlight">\(v_{k}\)</span> is orthogonal to all previous principal components <span class="math notranslate nohighlight">\(v_{1}, \dots, v_{k - 1}\)</span>. In practice, the collection of all principal components can be found in one go as the eigenvectors of the covariance matrix of <span class="math notranslate nohighlight">\(X\)</span>.</p>
+</section>
+<section id="pca-as-a-basis-expansion">
+<h2>PCA as a basis expansion<a class="headerlink" href="#pca-as-a-basis-expansion" title="Permalink to this headline">¶</a></h2>
+<p>For a <span class="math notranslate nohighlight">\(d\)</span>-dimensional vector <span class="math notranslate nohighlight">\(X\)</span>, there are in total <span class="math notranslate nohighlight">\(d\)</span> principal components to be found: <span class="math notranslate nohighlight">\(v^{1}, \dots, v_{d}\)</span>. The principal components form a basis of the space, i.e., every vector <span class="math notranslate nohighlight">\(X\)</span> can be represented as</p>
+<div class="math notranslate nohighlight">
+\[X = \mu + \sum_{k = 1}^d a_k v_{k},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu\)</span> is <span class="math notranslate nohighlight">\(E[X]\)</span> and the coefficients <span class="math notranslate nohighlight">\(a_k = X'v_k\)</span> are called <em>principal component scores</em>. When <span class="math notranslate nohighlight">\(d\)</span> is very large, we can truncate the sum above at <span class="math notranslate nohighlight">\(K \ll d\)</span> terms. This gives an approximation</p>
+<div class="math notranslate nohighlight">
+\[X \approx \mu + \sum_{k = 1}^K a_k v_{k}.\]</div>
+<p>This allows us to represent the high-dimensional vector <span class="math notranslate nohighlight">\(X\)</span>  by only a few numbers <span class="math notranslate nohighlight">\(a_1, \dots, a_K\)</span>. The number <span class="math notranslate nohighlight">\(K\)</span> determines the quality of the approximation.</p>
+</section>
+<section id="pca-for-synthetic-data-generation">
+<h2>PCA for synthetic data generation<a class="headerlink" href="#pca-for-synthetic-data-generation" title="Permalink to this headline">¶</a></h2>
+<p>PCA can be used to generate synthetic data for the high-dimensional vector <span class="math notranslate nohighlight">\(X\)</span>. For every instance <span class="math notranslate nohighlight">\(X_i\)</span> in the data set, we compute the principal component scores <span class="math notranslate nohighlight">\(a_{i, 1}, \dots, a_{i, K}\)</span>. The scores are uncorrelated by construction and we treat them as independent. We then fit a model <span class="math notranslate nohighlight">\(F_k\)</span> for the marginal distribution of each score <span class="math notranslate nohighlight">\(a_k\)</span>. From these models, we can generate synthetic scores <span class="math notranslate nohighlight">\(\tilde a_k\)</span> and transform them into a synthetic sample of <span class="math notranslate nohighlight">\(X\)</span> via</p>
+<div class="math notranslate nohighlight">
+\[\tilde X = \mu + \sum_{k = 1}^K \tilde a_k v_{k}.\]</div>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="API reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="copula.html" class="btn btn-neutral float-left" title="Copulas" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020 D. Meyer and T. Nagler
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

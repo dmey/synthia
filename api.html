@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API reference &mdash; synthia 1.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to cite" href="citing.html" />
+    <link rel="prev" title="Functional Principal Component Analysis (fPCA)" href="fpca.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#required-dependencies">Required dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#optional-dependencies">Optional dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#instructions">Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Load-required-modules">Load required modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Load-and-plot-sample-data">Load and plot sample data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Fit-and-generate-1000-random-samples-using-Gaussian-copula">Fit and generate 1000 random samples using Gaussian copula</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Fit-and-generate-1000-random-samples-using-fPCA">Fit and generate 1000 random samples using fPCA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#generation">Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/univariate.html">Univariate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Load-sample-data">Load sample data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Fit-and-generate-using-samples">Fit and generate using samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Fit-and-generate-using-parametrized-distribution">Fit and generate using parametrized distribution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Stretching-and-unifomization">Stretching and unifomization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Exporting-and-saving-generated-data">Exporting and saving generated data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/univariate.html#Saving-the-generator">Saving the generator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-independent.html">Multivariate: Independent</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Create-test-data">Create test data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Generate-synthetic-data">Generate synthetic data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Generate-synthetic-data-with-modified-characteristics">Generate synthetic data with modified characteristics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Parameterize-data-using-quantiles">Parameterize data using quantiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-independent.html#Parameterize-data-using-distributions">Parameterize data using distributions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-gaussian.html">Multivariate: Gaussian Copulas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Create-a-sample-dataset-with-n-samples">Create a sample dataset with n samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-gaussian.html#Fit-a-Gaussian-copula-with-Synthia’s-backend">Fit a Gaussian copula with Synthia’s backend</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/multivariate-vine.html">Multivariate: Vine Copulas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Create-a-sample-dataset-with-n-samples">Create a sample dataset with n samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/multivariate-vine.html#Fit-a-Vine-copula-with-pyvinecopulib’s-backend">Fit a Vine copula with pyvinecopulib’s backend</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/fpca.html">Multivariate: fPCA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Plot-source-data">Plot source data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Fit-the-fPCA-model-using-10-components">Fit the fPCA model using 10 components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Generate-same-number-of-samples-as-in-the-input">Generate same number of samples as in the input</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/fpca.html#Plot-the-results">Plot the results</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="examples/discrete-and-categorical.html">Multivariate: Discrete and Categorical</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Generate-dummy-data">Generate dummy data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/discrete-and-categorical.html#Fit-and-generate-new-samples">Fit and generate new samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#enhancement">Enhancement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/enhancement.html">Stretching and Uniformization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Import-libraries">Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Define-plotting-function">Define plotting function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Plot-source-data">Plot source data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Fit-copula-to-data">Fit copula to data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Generate-‘streatched’-samples">Generate ‘streatched’ samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/enhancement.html#Generate-‘more-uniformly-distributed’-samples">Generate ‘more uniformly distributed’ samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="copula.html">Copulas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#what-copulas-are">What copulas are</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#the-gaussian-copula">The Gaussian copula</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#other-copula-families">Other copula families</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copula.html#vine-copulas">Vine copulas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fpca.html">Functional Principal Component Analysis (fPCA)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#the-general-idea">The general idea</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#mathematical-definition">Mathematical definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#pca-as-a-basis-expansion">PCA as a basis expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fpca.html#pca-for-synthetic-data-generation">PCA for synthetic data generation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Help &amp; reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-generators">Data generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#copulas">Copulas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameterizers">Parameterizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transformers">Transformers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-synthia.util">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">How to cite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">Development notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#conda-environment">Conda environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#install-synthia">Install synthia</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#versioning">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#deployment">Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">Copyright &amp; License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">synthia</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/dmey/synthia/blob/master/docs/api.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="api-reference">
+<h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<p>This page provides an auto-generated summary of synthia’s API. For more details
+and examples, refer to the relevant chapters in the main part of the
+documentation.</p>
+<section id="data-generators">
+<h2>Data generators<a class="headerlink" href="#data-generators" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="synthia.CopulaDataGenerator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">synthia.</span></span><span class="sig-name descname"><span class="pre">CopulaDataGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.CopulaDataGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates the characteristics of a set of multi-feature samples and
+generates synthetic samples with the same or modified characteristics,
+based on copulas.</p>
+<p>The input can be a numpy array or xarray DataArray of shape (sample, feature),
+or an xarray Dataset where all variables have shapes like (sample[, …]).
+For Datasets, all extra dimensions except the first are treated as features.</p>
+<p>The output is in the same form as the input.</p>
+<p>Algorithm:</p>
+<ol class="arabic simple">
+<li><p>Fitting phase</p></li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha">
+<li><p>(Gaussian copula)
+The multivariate correlation between features is estimated and stored as
+correlation matrix with shape (feature,feature).
+Matrix values are between -1 and 1 inclusive.</p>
+<p>(Vine copula)
+The pyvinecopulib package is used to fit a vine copula that captures
+the multivariate correlation between features. See that package for further details.</p>
+</li>
+<li><p>(Optional)
+Some or all features of the input data are parameterized.
+If a feature is not parameterized, then the original data is used during generation.
+Parameterization may impact the quality of the synthetic samples.
+It can be useful for storing/re-distributing a data generator for later use
+without requiring the original data.</p></li>
+<li><p>Per-feature summary statistics (min, max, median) of the input data are computed.
+These statistics are only used if the synthetic samples should be generated
+with modified characteristics (uniformization, stretching).</p></li>
+</ol>
+</div></blockquote>
+<p>Note that all three steps in the fitting phase are independent from each other.</p>
+<ol class="arabic simple" start="2">
+<li><p>Generation phase</p></li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>Generate new samples from the fitted copula model (Gaussian or Vine).</p></li>
+<li><p>Transform copula samples to the feature scale by the quantile transform.</p></li>
+<li><p>(Optional) Apply modifications (uniformization, stretching) if asked for.</p></li>
+</ol>
+</div></blockquote>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">synthia</span> <span class="k">as</span> <span class="nn">syn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate dataset ~ N(0, .5) with 1000 random samples and 2 features.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mvnorm</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cov</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">mvnorm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Initialize the generator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generator</span> <span class="o">=</span> <span class="n">syn</span><span class="o">.</span><span class="n">CopulaDataGenerator</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Fit the generator to the data using a Gaussian copula model.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">generator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">copula</span><span class="o">=</span><span class="n">syn</span><span class="o">.</span><span class="n">GaussianCopula</span><span class="p">(),</span> <span class="n">parameterize_by</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate twice as many samples from the Gaussian copula model.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.CopulaDataGenerator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.CopulaDataGenerator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>verbose</strong> (<em>bool, optional</em>) – If True, prints progress messages during computation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.CopulaDataGenerator.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copula</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameterize_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.CopulaDataGenerator.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the marginal distributions and copula model for all features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>ndarray or DataArray or Dataset</em>) – The input data, either a
+2D array of shape (sample, feature) or a dataset where all
+variables have the shape (sample[, …]).</p></li>
+<li><p><strong>copula</strong> – The underlying copula to use, for example a GaussianCopula object.</p></li>
+<li><p><strong>types</strong> (<em>str or mapping, optional</em>) – Indicates whether features
+are categorical (‘cat’), discrete (‘disc’), or continuous (‘cont’).
+The following forms are valid:</p>
+<ul>
+<li><p>str</p></li>
+<li><p>per-feature mapping {feature idx: str} – ndarray/DataArray only</p></li>
+<li><p>per-variable mapping {var name: str} – Dataset only</p></li>
+</ul>
+</li>
+<li><p><strong>parameterize_by</strong> (<em>Parameterizer or mapping, optional</em>) – The
+following forms are valid:</p>
+<ul>
+<li><p>Parameterizer</p></li>
+<li><p>per-feature mapping {feature idx: Parameterizer} – ndarray/DataArray only</p></li>
+<li><p>per-variable mapping {var name: Parameterizer} – Dataset only</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.CopulaDataGenerator.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniformization_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stretch_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">copula_kws</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.CopulaDataGenerator.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate synthetic data from the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_samples</strong> (<em>int</em>) – Number of samples to generate.</p></li>
+<li><p><strong>uniformization_ratio</strong> (<em>float or mapping, optional</em>) – The
+following forms are valid:</p>
+<ul>
+<li><p>ratio</p></li>
+<li><p>per-feature mapping {feature idx: ratio} – ndarray/DataArray only</p></li>
+<li><p>per-variable mapping {var name: ratio} – Dataset only</p></li>
+</ul>
+</li>
+<li><p><strong>stretch_factor</strong> (<em>float or mapping, optional</em>) – The
+following forms are valid:</p>
+<ul>
+<li><p>stretch factor</p></li>
+<li><p>per-feature mapping {feature idx: stretch factor} – ndarray/DataArray only</p></li>
+<li><p>per-variable mapping {var name: stretch factor} – Dataset only</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Synthetic samples in the form of the input data</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthia.FPCADataGenerator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">synthia.</span></span><span class="sig-name descname"><span class="pre">FPCADataGenerator</span></span><a class="headerlink" href="#synthia.FPCADataGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates the characteristics of a set of multi-feature samples and
+generates synthetic samples with the same or modified characteristics,
+based on (functional) principal component analysis.</p>
+<p>The input can be a numpy array or xarray DataArray of shape (sample,
+feature), or an xarray Dataset where all variables have shapes like (sample
+[, …]). For Datasets, all extra dimensions except the first are treated
+as features.</p>
+<p>The output is in the same form as the input.</p>
+<p>Algorithm:</p>
+<ol class="arabic simple">
+<li><p>Fitting phase</p></li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>Compute principal component vectors and, for every input sample,</p></li>
+</ol>
+<blockquote>
+<div><p>corresponding principal component scores.</p>
+</div></blockquote>
+<ol class="loweralpha simple" start="2">
+<li><p>Fit a distribution model for each score (using all samples).</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Generation phase</p></li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>Generate new samples of principal component scores from the fitted</p></li>
+</ol>
+<blockquote>
+<div><p>distributions.</p>
+</div></blockquote>
+<ol class="loweralpha simple" start="2">
+<li><p>Transform scores into synthetic data on the feature scale by</p></li>
+</ol>
+<blockquote>
+<div><p>multiplying with principal component vectors.</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.FPCADataGenerator.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_fpca_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples_reduced</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.FPCADataGenerator.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the first <cite>n_fpca_components</cite> principal components vectors and
+fit marginal distributions to the corresponding scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>ndarray or DataArray or Dataset</em>) – The input data, either a
+2D array of shape (sample, feature) or a dataset where all
+variables have the shape (sample[, …]).</p></li>
+<li><p><strong>n_fpca_components</strong> (<em>int</em>) – Reduces the number of features</p></li>
+<li><p><strong>n_samples_reduced</strong> (<em>int, optional</em>) – Reduces the number of samples</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.FPCADataGenerator.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.FPCADataGenerator.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate synthetic data from the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_samples</strong> (<em>int</em>) – Number of samples to generate.</p></li>
+<li><p><strong>scaling_factor</strong> (<em>float, optional</em>) – tbd</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Synthetic samples in the form of the input data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.FPCADataGenerator.reconstruct">
+<span class="sig-name descname"><span class="pre">reconstruct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eig_scores</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.FPCADataGenerator.reconstruct" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="copulas">
+<h2>Copulas<a class="headerlink" href="#copulas" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="synthia.GaussianCopula">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">synthia.</span></span><span class="sig-name descname"><span class="pre">GaussianCopula</span></span><a class="headerlink" href="#synthia.GaussianCopula" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Gaussian copula.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.GaussianCopula.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank_standardized</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.GaussianCopula.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit a Gaussian copula to data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rank_standardized</strong> (<em>ndarray</em>) – 2D array of shape (feature, feature)
+with values in range [0,1]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.GaussianCopula.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qrng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.GaussianCopula.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate n_samples gaussian copula entries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_samples</strong> (<em>int</em>) – Number of samples to generate.</p></li>
+<li><p><strong>qrng</strong> (<em>bool, optional</em>) – If True, quasirandom numbers are generated using pyvinecopulib.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>2D array of shape (n_samples, feature) with gaussian copula entries.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthia.VineCopula">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">synthia.</span></span><span class="sig-name descname"><span class="pre">VineCopula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.VineCopula" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Vine copula.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.VineCopula.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.VineCopula.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>controls</strong> (<em>pyvinecopulib.FitControlsVinecop, optional</em>) – Controls
+for fitting vine copula models.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.VineCopula.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank_standardized</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.VineCopula.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit a Vine copula to continuous data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rank_standardized</strong> (<em>ndarray</em>) – 2D array of shape (sample, feature)
+with values in range [-1,1]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.VineCopula.fit_with_discrete">
+<span class="sig-name descname"><span class="pre">fit_with_discrete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank_standardized</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_discrete</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.VineCopula.fit_with_discrete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit a Vine copula to mixed continuous/discrete data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rank_standardized</strong> (<em>ndarray</em>) – 2D array of shape (sample, feature)
+with values in range [-1,1]</p></li>
+<li><p><strong>is_discrete</strong> (<em>List[bool]</em>) – 1D list of booleans of shape (feature) indicating
+whether features are discrete or continuous</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.VineCopula.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qrng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.VineCopula.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate n_samples Vine copula entries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n_samples</strong> (<em>int</em>) – Number of samples to generate.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>2D array of shape (sample, feature) with Vine copula entries.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="parameterizers">
+<h2>Parameterizers<a class="headerlink" href="#parameterizers" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="synthia.ConstParameterizer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">synthia.</span></span><span class="sig-name descname"><span class="pre">ConstParameterizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.ConstParameterizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preserves the size of the original data. No downsampling is performed
+at fitting and no interpolation is perfomed at generation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.ConstParameterizer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.ConstParameterizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.ConstParameterizer.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.ConstParameterizer.fit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.ConstParameterizer.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.ConstParameterizer.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns original samples without interpolation.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthia.QuantileParameterizer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">synthia.</span></span><span class="sig-name descname"><span class="pre">QuantileParameterizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_quantiles</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.QuantileParameterizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compresses the original data. Downsampling is performed
+at fitting using quantiles and interpolation is perfomed at generation using
+cubic interpolation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.QuantileParameterizer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_quantiles</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.QuantileParameterizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.QuantileParameterizer.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.QuantileParameterizer.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downsamples by fitting quantile vector of user-defined size.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.QuantileParameterizer.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.QuantileParameterizer.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate samples vector using scipy.interpolate.PchipInterpolator.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthia.DistributionParameterizer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">synthia.</span></span><span class="sig-name descname"><span class="pre">DistributionParameterizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.DistributionParameterizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compresses the original data. Downsampling is performed
+by fitting the “best” parametric distribution from those supported in scipy.
+Generation is perfomed using the respective random varietes method in scipy.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.DistributionParameterizer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.DistributionParameterizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Args:
+dist_names (sequence of str, optional): Names of scipy distributions to use.
+verbose (bool, optional): If True, print progress messages.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.DistributionParameterizer.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.DistributionParameterizer.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fits data on multiple distributions and keeps the best fit
+according to the Kolmogorov-Smirnov test.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>y</strong> (<em>ndarray</em>) – 1D array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.DistributionParameterizer.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.DistributionParameterizer.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate n random samples from the best-fitting distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – Number of samples to generate.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1D array of shape (n,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.DistributionParameterizer.get_dist_names">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">get_dist_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#synthia.DistributionParameterizer.get_dist_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of names of all supported scipy distributions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of distribution names</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="transformers">
+<h2>Transformers<a class="headerlink" href="#transformers" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="synthia.ArcTanhTransformer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">synthia.</span></span><span class="sig-name descname"><span class="pre">ArcTanhTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.ArcTanhTransformer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preview: Performs inverse hyperbolic tangent tranformations on original data.
+Assumption: the first dimension is samples and all others are features.
+I.e. transformations will be done per feature.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.ArcTanhTransformer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.ArcTanhTransformer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.ArcTanhTransformer.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.ArcTanhTransformer.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.ArcTanhTransformer.revert">
+<span class="sig-name descname"><span class="pre">revert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.ArcTanhTransformer.revert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthia.BoxCoxTransformer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">synthia.</span></span><span class="sig-name descname"><span class="pre">BoxCoxTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'left'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.BoxCoxTransformer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preview: Performs Box Cox tranformations on original data.
+Assumption: the first dimension is samples and all others are features.
+I.e. transformations will be done per feature.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.BoxCoxTransformer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'left'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.BoxCoxTransformer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.BoxCoxTransformer.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.BoxCoxTransformer.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.BoxCoxTransformer.revert">
+<span class="sig-name descname"><span class="pre">revert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.BoxCoxTransformer.revert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="synthia.CombinedTransformer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">synthia.</span></span><span class="sig-name descname"><span class="pre">CombinedTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.CombinedTransformer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preview: Performs combined tranformations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.CombinedTransformer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.CombinedTransformer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.CombinedTransformer.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.CombinedTransformer.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthia.CombinedTransformer.revert">
+<span class="sig-name descname"><span class="pre">revert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.CombinedTransformer.revert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-synthia.util">
+<span id="utilities"></span><h2>Utilities<a class="headerlink" href="#module-synthia.util" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="synthia.util.load_dataset">
+<span class="sig-prename descclassname"><span class="pre">synthia.util.</span></span><span class="sig-name descname"><span class="pre">load_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SAF-Synthetic'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthia.util.load_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dataset of 25 000 synthetic temperature profiles
+from the SAF dataset (<a class="reference external" href="http://dx.doi.org/10.13140/2.1.4476.8963">http://dx.doi.org/10.13140/2.1.4476.8963</a>).
+These were fitted with 6 fPCA componenets in Synthia version 0.2.0.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="citing.html" class="btn btn-neutral float-right" title="How to cite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="fpca.html" class="btn btn-neutral float-left" title="Functional Principal Component Analysis (fPCA)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020 D. Meyer and T. Nagler
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
