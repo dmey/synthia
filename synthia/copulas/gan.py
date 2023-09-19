@@ -129,3 +129,16 @@ class GANCopula(Copula, Module):
                     loss = self.loss(self.discriminator(fake), torch.ones(batch_size, 1))
                     loss.backward()
                     self.discriminator_optimizer.step()
+        
+    def generate(self, n_samples: int) -> np.ndarray:
+        """
+        Generates samples from the copula.
+        
+        Args:
+            n_samples (int): Number of samples to generate.
+        
+        Returns:
+            np.ndarray: Samples from the copula.
+        """
+        with self.device:
+            return self.generator(torch.rand(n_samples, 1)).detach().numpy()
