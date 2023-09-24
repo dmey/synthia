@@ -133,7 +133,7 @@ class GANCopula(Copula, Module):
                     #Train Generator
                     self.generator.zero_grad()
                     fake = self.generator(torch.rand(batch_size, 2))
-                    discriminator_loss = self.loss(self.discriminator(fake), torch.ones(batch_size, 1))
+                    discriminator_loss = self.loss(self.discriminator(fake), torch.zeros(batch_size, 1))
                     discriminator_loss.backward()
                     self.discriminator_optimizer.step()
         
