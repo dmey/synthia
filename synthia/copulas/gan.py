@@ -3,6 +3,8 @@ from .copula import Copula
 import torch
 from torch.nn import Module
 import numpy as np
+import os
+os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 
 class GANCopula(Copula, Module):
     """
@@ -10,16 +12,16 @@ class GANCopula(Copula, Module):
     """
     def __init__(
             self,
-            generator_deep_layers: int = 2,
-            discriminator_deep_layers: int = 2,
+            generator_deep_layers: list[int] = [32, 32],
+            discriminator_deep_layers: list[int] = [32, 32],
             device: Literal['cpu', 'cuda', 'auto'] = 'auto',
             generator_optimizer: Literal['adam', 'sgd'] = 'adam',
             discriminator_optimizer: Literal['adam', 'sgd'] = 'adam',
         )->None:
         """
         Args:
-            generator_deep_layers (int): Number of layers for the generator.
-            discriminator_deep_layers (int): Number of layers for the discriminator.
+            generator_deep_layers (list[int]): Number of deep layers for the generator. (Default: [32, 32])
+            discriminator_deep_layers (list[int]): Number of deep layers for the discriminator. (Default: [32, 32])
             device (Literal['cpu', 'cuda', 'auto']): Device to use for training. Use 'auto' to automatically select the device.
             generator_optimizer (Literal['adam', 'sgd']): Optimizer to use for training the generator.
             discriminator_optimizer (Literal['adam', 'sgd']): Optimizer to use for training the discriminator.
@@ -33,11 +35,11 @@ class GANCopula(Copula, Module):
         self.device = None
         match device:
             case 'auto':
-                self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+                self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
             case 'cpu':
-                self.device = 'cpu'
+                self.device = torch.device('cpu')
             case 'cuda':
-                self.device = 'cuda'
+                self.device = torch.device('cuda')
             case _:
                 raise ValueError(f"Invalid device {device}. Use 'cpu', 'cuda' or 'auto'.")
 
@@ -72,7 +74,7 @@ class GANCopula(Copula, Module):
             epochs: int = 1,
             lr: float = 0.001,
             batch_size: int = 32,
-        ) -> None:
+        ) -> tuple[torch.Tensor, torch.Tensor]:
         """
         Fits the copula to data.
         
@@ -83,8 +85,9 @@ class GANCopula(Copula, Module):
             batch_size (int): Batch size for training.
         
         Returns:
-            None
+            tuple[torch.Tensor, torch.Tensor]: Generator and discriminator loss.
         """
+        generator_loss, discriminator_loss = None, None
         with self.device:
             if isinstance(X, np.ndarray):
                 X = torch.from_numpy(X).float()
@@ -92,20 +95,22 @@ class GANCopula(Copula, Module):
                 X = X.float()
             else:
                 raise TypeError(f"Invalid type {type(X)} for X. Use torch.Tensor or np.array.")
+            X = X.to(self.device)
+            self.n_features = X.shape[1]
 
-            #Create Layers
+            #Create Generator
+            self.deep_gen_layers = [2] + self.n_gen + [self.n_features]
+            self.deep_gen_layers = zip(self.deep_gen_layers[:-1], self.deep_gen_layers[1:])
             self.generator = torch.nn.Sequential(
-                torch.nn.Linear(1, X.shape[1]),
-                torch.nn.ReLU(),
-                *[layer for _ in range(self.n_gen) for layer in [torch.nn.Linear(X.shape[1], X.shape[1]), torch.nn.ReLU()]],
-                torch.nn.Linear(X.shape[1], X.shape[1])
+                *[x for i, j in self.deep_gen_layers for x in [torch.nn.Linear(i, j), torch.nn.ReLU()]],
             )
 
+            #Create Discriminator
+            self.deep_dis_layers = [self.n_features] + self.n_dis + [1]
+            self.deep_dis_layers = zip(self.deep_dis_layers[:-1], self.deep_dis_layers[1:])
             self.discriminator = torch.nn.Sequential(
-                torch.nn.Linear(X.shape[1], X.shape[1]),
-                torch.nn.ReLU(),
-                *[layer for _ in range(self.n_dis) for layer in [torch.nn.Linear(X.shape[1], X.shape[1]), torch.nn.ReLU()]],
-                torch.nn.Linear(X.shape[1], 1)
+                *[x for i,j in self.deep_dis_layers for x in [torch.nn.Linear(i, j), torch.nn.ReLU()]],
+                torch.nn.Sigmoid(),
             )
 
             self.generator_optimizer = self.get_optimizer(self.g_opt, lr)
@@ -117,18 +122,22 @@ class GANCopula(Copula, Module):
                     #Train Discriminator
                     self.discriminator.zero_grad()
                     real = X[i:i+batch_size]
-                    fake = self.generator(torch.rand(batch_size, 1))
-                    loss = self.loss(self.discriminator(real), torch.ones(batch_size, 1)) +\
-                          self.loss(self.discriminator(fake), torch.zeros(batch_size, 1))
-                    loss.backward()
+                    actual_batch_size = real.shape[0]
+                    #At the end the batch size might be smaller than the specified batch size
+                    fake = self.generator(torch.rand(actual_batch_size, 2))
+                    generator_loss = self.loss(self.discriminator(real), torch.ones(actual_batch_size, 1)) +\
+                          self.loss(self.discriminator(fake), torch.zeros(actual_batch_size, 1))
+                    generator_loss.backward()
                     self.generator_optimizer.step()
 
                     #Train Generator
                     self.generator.zero_grad()
-                    fake = self.generator(torch.rand(batch_size, 1))
-                    loss = self.loss(self.discriminator(fake), torch.ones(batch_size, 1))
-                    loss.backward()
+                    fake = self.generator(torch.rand(batch_size, 2))
+                    discriminator_loss = self.loss(self.discriminator(fake), torch.ones(batch_size, 1))
+                    discriminator_loss.backward()
                     self.discriminator_optimizer.step()
+        
+        return generator_loss, discriminator_loss
         
     def generate(self, n_samples: int) -> np.ndarray:
         """
