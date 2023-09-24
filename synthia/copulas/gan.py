@@ -126,21 +126,19 @@ class GANCopula(Copula, Module):
                     disc_real = self.discriminator(real)
                     disc_fake = self.discriminator(fake)
 
-                    loss_real = self.loss(disc_real, torch.ones(actual_batch_size))
+                    loss_real = self.loss(disc_real, torch.ones(actual_batch_size, 1))
                     #Inserting 1 for y effectively calculates log(D(x)), as the second term on
                     #the loss vanishes as it is proportional to (1-y)
-                    loss_real.backward()
 
-                    loss_fake = self.loss(disc_fake, torch.zeros(actual_batch_size))
+                    loss_fake = self.loss(disc_fake, torch.zeros(actual_batch_size, 1))
                     #In a similar fashion, inserting 0 for y effectively calculates log(1-D(G(z)))
-                    loss_fake.backward()
                     loss_discriminator = loss_real + loss_fake
-
+                    loss_discriminator.backward(retain_graph=True)
                     self.discriminator_optimizer.step()
 
                     self.generator.zero_grad()
                     new_disc_fake = self.discriminator(fake)
-                    loss_generator = self.loss(new_disc_fake, torch.ones(actual_batch_size))
+                    loss_generator = self.loss(new_disc_fake, torch.ones(actual_batch_size, 1))
                     loss_generator.backward()
                     self.generator_optimizer.step()
                     
