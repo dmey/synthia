@@ -15,16 +15,14 @@ class GANCopula(Copula, Module):
             generator_deep_layers: list[int] = [32, 32],
             discriminator_deep_layers: list[int] = [32, 32],
             device: Literal['cpu', 'cuda', 'auto'] = 'auto',
-            generator_optimizer: Literal['adam', 'sgd'] = 'adam',
-            discriminator_optimizer: Literal['adam', 'sgd'] = 'adam',
+            optimizer: Literal['adam', 'sgd'] = 'adam',
         )->None:
         """
         Args:
             generator_deep_layers (list[int]): Number of deep layers for the generator. (Default: [32, 32])
             discriminator_deep_layers (list[int]): Number of deep layers for the discriminator. (Default: [32, 32])
             device (Literal['cpu', 'cuda', 'auto']): Device to use for training. Use 'auto' to automatically select the device.
-            generator_optimizer (Literal['adam', 'sgd']): Optimizer to use for training the generator.
-            discriminator_optimizer (Literal['adam', 'sgd']): Optimizer to use for training the discriminator.
+            optimizer (Literal['adam', 'sgd']): Optimizer to use for training.
         
         Returns:
             None
@@ -45,16 +43,16 @@ class GANCopula(Copula, Module):
 
         self.n_gen = generator_deep_layers
         self.n_dis = discriminator_deep_layers
-        self.g_opt = generator_optimizer
-        self.d_opt = discriminator_optimizer
-        self.loss = torch.nn.BCELoss()
+        self.opt = optimizer
+        self.loss = torch.nn.BCEWithLogitsLoss()
     
-    def get_optimizer(self, optimizer_type: Literal['adam', 'sgd'], lr) -> torch.optim.Optimizer:
+    def get_optimizer(self, optimizer_type: Literal['adam', 'sgd'], lr: float) -> torch.optim.Optimizer:
         """
         Get the optimizer for the generator or discriminator.
 
         Args:
             optimizer (Literal['adam', 'sgd']): The optimizer to get.
+            lr (float): The learning rate for the optimizer.
 
         Returns:
             torch.optim.Optimizer: The optimizer.
@@ -87,7 +85,7 @@ class GANCopula(Copula, Module):
         Returns:
             tuple[torch.Tensor, torch.Tensor]: Generator and discriminator loss.
         """
-        generator_loss, discriminator_loss = None, None
+        loss = None
         with self.device:
             if isinstance(X, np.ndarray):
                 X = torch.from_numpy(X).float()
@@ -109,35 +107,46 @@ class GANCopula(Copula, Module):
             self.deep_dis_layers = [self.n_features] + self.n_dis + [1]
             self.deep_dis_layers = zip(self.deep_dis_layers[:-1], self.deep_dis_layers[1:])
             self.discriminator = torch.nn.Sequential(
-                *[x for i,j in self.deep_dis_layers for x in [torch.nn.Linear(i, j), torch.nn.ReLU()]],
-                torch.nn.Sigmoid(),
+                *[x for i,j in self.deep_dis_layers for x in [torch.nn.Linear(i, j), torch.nn.ReLU()]]
             )
 
-            self.generator_optimizer = self.get_optimizer(self.g_opt, lr)
-            self.discriminator_optimizer = self.get_optimizer(self.d_opt, lr)
+            self.generator_optimizer = self.get_optimizer(self.opt, lr)
+            self.discriminator_optimizer = self.get_optimizer(self.opt, lr)
 
             #Train GAN
             for epoch in range(epochs):
                 for i in range(0, X.shape[0], batch_size):
-                    #Train Discriminator
-                    self.discriminator.zero_grad()
-                    real = X[i:i+batch_size]
-                    actual_batch_size = real.shape[0]
-                    #At the end the batch size might be smaller than the specified batch size
-                    fake = self.generator(torch.rand(actual_batch_size, 2))
-                    generator_loss = self.loss(self.discriminator(real), torch.ones(actual_batch_size, 1)) +\
-                          self.loss(self.discriminator(fake), torch.zeros(actual_batch_size, 1))
-                    generator_loss.backward()
-                    self.generator_optimizer.step()
 
-                    #Train Generator
-                    self.generator.zero_grad()
-                    fake = self.generator(torch.rand(batch_size, 2))
-                    discriminator_loss = self.loss(self.discriminator(fake), torch.zeros(batch_size, 1))
-                    discriminator_loss.backward()
+                    real = X[i:i+batch_size]
+                    #At the end the batch size might be smaller than the specified batch size
+                    actual_batch_size = real.shape[0]
+                    fake = self.generator(torch.rand(actual_batch_size, 2))
+
+                    self.discriminator.zero_grad()
+                    disc_real = self.discriminator(real)
+                    disc_fake = self.discriminator(fake)
+
+                    loss_real = self.loss(disc_real, torch.ones(actual_batch_size))
+                    #Inserting 1 for y effectively calculates log(D(x)), as the second term on
+                    #the loss vanishes as it is proportional to (1-y)
+                    loss_real.backward()
+
+                    loss_fake = self.loss(disc_fake, torch.zeros(actual_batch_size))
+                    #In a similar fashion, inserting 0 for y effectively calculates log(1-D(G(z)))
+                    loss_fake.backward()
+                    loss_discriminator = loss_real + loss_fake
+
                     self.discriminator_optimizer.step()
+
+                    self.generator.zero_grad()
+                    new_disc_fake = self.discriminator(fake)
+                    loss_generator = self.loss(new_disc_fake, torch.ones(actual_batch_size))
+                    loss_generator.backward()
+                    self.generator_optimizer.step()
+                    
+
         
-        return generator_loss, discriminator_loss
+        return loss_discriminator, loss_generator
         
     def generate(self, n_samples: int) -> np.ndarray:
         """
