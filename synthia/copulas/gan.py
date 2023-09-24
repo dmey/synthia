@@ -150,4 +150,4 @@ class GANCopula(Copula, Module):
             np.ndarray: Samples from the copula.
         """
         with self.device:
-            return self.generator(torch.rand(n_samples, 1)).detach().numpy()
+            return self.generator(torch.rand(n_samples, 2)).detach().cpu().numpy()
