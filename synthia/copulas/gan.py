@@ -107,7 +107,7 @@ class GANCopula(Copula, Module):
             \end{cases}
         
         Args:
-            X (Union[torch.Tensor, np.array]): Input data in the shape (n_samples, n_features).
+            X (Union[torch.Tensor, np.array]): Input data in the shape (n_samples, n_features). Values must be within [-1,1]
             global_iterations (int): Number of iterations to train the GAN.
             discriminator_iterations (int): Number of iterations to train the discriminator for each global iteration.
             lr (float): Learning rate for the optimizer.
@@ -117,6 +117,10 @@ class GANCopula(Copula, Module):
         Returns:
             tuple[torch.Tensor, torch.Tensor]: Generator and discriminator loss.
         """
+
+        #Check X values
+        assert X.max() <= 1 and X.min() >= -1, "Values must be within [-1,1]. Try using np.tanh first."
+
         with self.device:
             if isinstance(X, np.ndarray):
                 X = torch.from_numpy(X).float()
@@ -131,9 +135,10 @@ class GANCopula(Copula, Module):
             self.deep_gen_layers = [self.latent_dim] + self.n_gen + [self.n_features]
             self.deep_gen_layers = list(zip(self.deep_gen_layers[:-1], self.deep_gen_layers[1:]))
             self.generator = torch.nn.Sequential(
-                *[x for i, j in self.deep_gen_layers for x in [torch.nn.Linear(i, j), torch.nn.ReLU()]],
+                *[x for i, j in self.deep_gen_layers for x in [torch.nn.Linear(i, j), torch.nn.LeakyReLU()]],
                 torch.nn.Dropout(dropout_proba),
                 torch.nn.Linear(self.deep_gen_layers[-1][1], self.deep_gen_layers[-1][1]),
+                torch.nn.Tanh()
             )
             #Initialize weights
             self.generator.apply(self.init_weights)
@@ -142,7 +147,7 @@ class GANCopula(Copula, Module):
             self.deep_dis_layers = [self.n_features] + self.n_dis + [2]
             self.deep_dis_layers = list(zip(self.deep_dis_layers[:-1], self.deep_dis_layers[1:]))
             self.discriminator = torch.nn.Sequential(
-                *[x for i,j in self.deep_dis_layers for x in [torch.nn.Linear(i, j), torch.nn.ReLU()]],
+                *[x for i,j in self.deep_dis_layers for x in [torch.nn.Linear(i, j), torch.nn.LeakyReLU()]],
                 torch.nn.Dropout(dropout_proba),
                 torch.nn.Linear(2,1)
             )
@@ -160,27 +165,27 @@ class GANCopula(Copula, Module):
                     real = X[torch.randperm(X.shape[0])[:batch_size]]
                     #At the end the batch size might be smaller than the specified batch size
                     actual_batch_size = real.shape[0]
-                    fake = self.generator(torch.rand(actual_batch_size, self.latent_dim))
+                    fake = self.generator(torch.randn(actual_batch_size, self.latent_dim))
 
                     self.discriminator.zero_grad()
                     disc_real = self.discriminator(real)
                     disc_fake = self.discriminator(fake)
 
                     loss_real = self.loss(disc_real, torch.ones(actual_batch_size, 1))
-                    #Inserting 1 for y effectively calculates log(D(x)), as the other term on
+                    #Inserting 1 for y effectively calculates -log(D(x)), as the other term on
                     #the loss vanishes as it is proportional to y
 
                     loss_fake = self.loss(disc_fake, torch.zeros(actual_batch_size, 1))
-                    #In a similar fashion, inserting 0 for y yields log(1-D(G(z)))
+                    #In a similar fashion, inserting 0 for y yields -log(1-D(G(z)))
                     loss_discriminator = loss_real + loss_fake
-                    loss_discriminator.backward(retain_graph=True)
+                    loss_discriminator.backward()
                     self.discriminator_optimizer.step()
 
                 self.generator.zero_grad()
-                new_fake = self.generator(torch.rand(self.fake_batch_size, self.latent_dim))
+                new_fake = self.generator(torch.randn(self.fake_batch_size, self.latent_dim))
                 new_disc_fake = self.discriminator(new_fake)
                 loss_generator = self.loss(new_disc_fake, torch.ones(self.fake_batch_size, 1))
-                #Inserting 0 for y calculates log(D(G(z)))
+                #Inserting 0 for y calculates -log(D(G(z)))
                 loss_generator.backward()
                 self.generator_optimizer.step()
                     
@@ -199,4 +204,4 @@ class GANCopula(Copula, Module):
             np.ndarray: Samples from the copula.
         """
         with self.device:
-            return self.generator(torch.rand(n_samples, self.latent_dim)).detach().cpu().numpy()
+            return self.generator(torch.randn(n_samples, self.latent_dim)).detach().cpu().numpy()
