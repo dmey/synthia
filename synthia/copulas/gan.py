@@ -112,7 +112,7 @@ class GANCopula(Copula, Module):
             discriminator_iterations (int): Number of iterations to train the discriminator for each global iteration.
             lr (float): Learning rate for the optimizer.
             batch_size (int): Batch size for training.
-            dropout_proba (float): Dropout probability for the generator and discriminator.
+            dropout_proba (float): Dropout probability for the generator.
         
         Returns:
             tuple[torch.Tensor, torch.Tensor]: Generator and discriminator loss.
@@ -148,7 +148,6 @@ class GANCopula(Copula, Module):
             self.deep_dis_layers = list(zip(self.deep_dis_layers[:-1], self.deep_dis_layers[1:]))
             self.discriminator = torch.nn.Sequential(
                 *[x for i,j in self.deep_dis_layers for x in [torch.nn.Linear(i, j), torch.nn.LeakyReLU()]],
-                torch.nn.Dropout(dropout_proba),
                 torch.nn.Linear(2,1)
             )
             #Initialize weights
