@@ -6,7 +6,7 @@ import numpy as np
 import os
 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 
-class GANCopula(Copula, Module):
+class GAN(Module):
     """
     Learns Copula from data using Generative Adversarial Networks.
     """
@@ -31,8 +31,7 @@ class GANCopula(Copula, Module):
         Returns:
             None
         """
-        Module.__init__(self)
-        Copula.__init__(self)
+        super.__init__()
 
         self.device = None
         match device:
