@@ -16,3 +16,4 @@ nbsphinx
 sphinxcontrib-bibtex==1
 sphinx-copybutton
 torch
+derivative
