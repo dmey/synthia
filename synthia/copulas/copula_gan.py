@@ -2,6 +2,7 @@ from typing import Literal, Union, Annotated
 from .copula import Copula
 from ..generators.gan import GAN
 from derivative import dxdt
+from tqdm import tqdm
 import numpy as np
 import torch
 import zfit
@@ -65,7 +66,7 @@ def inverse_map_cdf(cdf_values, support):
         cdf_values: CDF values to compute inverse of.
         support: Support of the data.
     """
-    return lambda x: torch.from_numpy(np.interp(x, cdf_values, support))
+    return lambda x: np.interp(x, cdf_values, support)
 
 class GRU(torch.nn.Module):
     def __init__(self, n_features: int, hidden_size: int = 1):
@@ -82,11 +83,12 @@ class GRU(torch.nn.Module):
         x = self.linear(x)
         return x
 
-
 class CopulaGAN(Copula, GAN):
     """
     Learns Copula from data using Generative Adversarial Networks.
     """
+    _support = None
+    _initialized = False
     def __init__(
             self,
             generator_deep_layers: list[int] = [32, 32],
@@ -102,38 +104,54 @@ class CopulaGAN(Copula, GAN):
             generator_fake_size
         )
 
-    def initialize(self, X: torch.Tensor, **kwargs):
-        # Generate marginals and sample space
-        n_features = X.shape[1]
+    def initialize(self, X: torch.Tensor, verbose: bool = False, **kwargs):
+        if not self._initialized:
+            # Generate marginals and sample space
+            n_features = X.shape[1]
 
-        # Create target KDEs and CDFs
-        target_kdes = []
-        target_pdfs = []
-        cdfs = []
-        real_spaces = []
-        real_U = []
-        for i in range(n_features):
-            obs_space = zfit.Space('X' + str(i), limits=(X[:, i].min(), X[:, i].max()))
-            kde = zfit.pdf.KDE1DimGrid(
-                obs=obs_space,
-                data=zfit.Data.from_tensor(tensor=X[:, i], obs=obs_space)
-            )
-            cdf, support = compute_cdf(kde, **kwargs)
-            real_U.append(map_cdf(cdf, support)(X[:,i]))
-            pdf = torch.from_numpy(kde.pdf(
-                torch.linspace(X[:,i].min().item(),X[:,i].max().item(),len(support)),
-                obs_space
-            ).numpy())
-            target_kdes.append(kde)
-            cdfs.append(cdf)
-            real_spaces.append(obs_space)
-            target_pdfs.append(pdf)
+            # Create target KDEs and CDFs
+            target_kdes = []
+            target_pdfs = []
+            cdfs = []
+            real_spaces = []
+            real_U = []
+            for i in range(n_features):
+                obs_space = zfit.Space('X' + str(i), limits=(X[:, i].min(), X[:, i].max()))
+                kde = zfit.pdf.KDE1DimGrid(
+                    obs=obs_space,
+                    data=zfit.Data.from_tensor(tensor=X[:, i], obs=obs_space)
+                )
+                cdf, support = compute_cdf(kde, **kwargs)
+                real_U.append(map_cdf(cdf, support)(X[:,i]))
+                pdf = torch.from_numpy(kde.pdf(
+                    torch.linspace(X[:,i].min().item(),X[:,i].max().item(),len(support)),
+                    obs_space
+                ).numpy())
+                target_kdes.append(kde)
+                cdfs.append(cdf)
+                real_spaces.append(obs_space)
+                target_pdfs.append(pdf)
 
-        self.real_space = zfit.dimension.combine_spaces(*real_spaces)
-        self.target_kdes = target_kdes
-        self.target_cdf = torch.stack(cdfs, dim=1).float().to(self.device)
-        self.target_pdf = torch.stack(target_pdfs, dim=1).float().to(self.device)
-        self.real_U = torch.stack(real_U, dim=1).float().to(self.device)
+            self.real_space = zfit.dimension.combine_spaces(*real_spaces)
+            self.target_kdes = target_kdes
+            self.target_cdf = torch.stack(cdfs, dim=1).float().to(self.device)
+            self.target_pdf = torch.stack(target_pdfs, dim=1).float().to(self.device)
+            self.real_U = torch.stack(real_U, dim=1).float().to(self.device)
+            self._initialized = True
+        else:
+            tqdm.write("Already initialized") if verbose else None
+
+    @property
+    def support(self):
+        if hasattr(self, 'real_space'):
+            M_samples = self.target_cdf.shape[0]
+            self._support = torch.stack([
+                torch.linspace(float(x_0), float(x_1), M_samples)\
+                        for x_0, x_1 in zip(self.real_space.limits[0][0],self.real_space.limits[1][0])
+                ], dim=1).detach().cpu().numpy()
+        else:
+            raise AttributeError("Cannot compute support without real_space. Run initialize() first.")
+        return self._support
 
     def construct_discriminator(
             self,
@@ -164,7 +182,8 @@ class CopulaGAN(Copula, GAN):
             batch_size: int = 32,
             generator_kwargs: dict = {},
             discriminator_kwargs: dict = {},
-            CDFN: int = 1000
+            CDFN: int = 1000,
+            verbose: bool = True
         ):
         """
         Uses GAN to learn a Copula flow from vector U sampled from the marginals of an arbitrary dataset.
@@ -179,7 +198,8 @@ class CopulaGAN(Copula, GAN):
             batch_size (int): Batch size for training. (Default: 32)
             generator_kwargs (dict): Keyword arguments to pass to the generator. (Default: {})
             discriminator_kwargs (dict): Keyword arguments to pass to the discriminator. (Default: {})
-            CDFN (int): Number of samples to use for computing the CDF. (Default: 1000)
+            CDFN (int): Number of samples to use for computing the CDF. (Default: 1000).
+            verbose (bool): Whether to show progress bar and print status. (Default: True)
         """
         if isinstance(X, np.ndarray):
             X = torch.from_numpy(X).float()
@@ -188,7 +208,8 @@ class CopulaGAN(Copula, GAN):
         else:
             raise TypeError(f"Invalid type {type(X)} for X. Use torch.Tensor or np.array.")
 
-        self.initialize(X, n_samples = CDFN)
+        tqdm.write("Initializing") if verbose else None
+        self.initialize(X, n_samples = CDFN, verbose = verbose)
 
         self.construct_generator(X.shape[1], activation='sigmoid', **generator_kwargs)
         self.construct_discriminator(X.shape[1], **discriminator_kwargs)
@@ -199,7 +220,7 @@ class CopulaGAN(Copula, GAN):
             self.discriminator_optimizer = self.get_optimizer(self.opt, lr)
 
             #Train
-            for _ in range(global_iterations):
+            for _ in tqdm(range(global_iterations)):
                 for __ in range(discriminator_iterations):
                     #Train Discriminator
                     rand = torch.rand(batch_size, self.latent_dimension, device=self.device)
@@ -220,5 +241,21 @@ class CopulaGAN(Copula, GAN):
                 loss = self.loss(fake_discriminant, torch.ones_like(fake_discriminant))
                 loss.backward()
                 self.generator_optimizer.step()
-    def generate(self, n_samples: int, **kws) -> torch.Tensor:
-        return super().generate(n_samples, **kws)
+    def sample_copula(self, n_samples: int, **kws) -> torch.Tensor:
+        return super().sample(n_samples, **kws)
+
+    def sample(self, n_samples: int) -> np.ndarray:
+        """
+        Samples from the learned Copula.
+
+        Args:
+            n_samples (int): Number of samples to generate.
+        """
+        U = self.sample_copula(n_samples).detach().cpu().numpy()
+
+        target_cdf = self.target_cdf.detach().cpu().numpy()
+
+        return np.vstack([inverse_map_cdf(target_cdf[:,i], self.support[:,i])(U[:,1]) for i in range (U.shape[1])]).T
+    
+    def generate(self, n_samples: int, **kws) -> np.ndarray:
+        return self.sample(n_samples, **kws)
