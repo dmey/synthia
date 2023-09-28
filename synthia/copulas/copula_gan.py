@@ -47,7 +47,7 @@ def compute_cdf(kde_model, n_samples=1000):
 
     return cdf_values, support
 
-def map_cdf(cdf_values, support)->function:
+def map_cdf(cdf_values, support):
     """
     Maps the data in the support to its corresponding CDF value.
 
@@ -55,7 +55,7 @@ def map_cdf(cdf_values, support)->function:
         cdf_values: CDF values to map to.
         support: Support of the data.
     """
-    return lambda x: np.interp(x, support, cdf_values)
+    return lambda x: torch.from_numpy(np.interp(x, support, cdf_values))
 
 def inverse_map_cdf(cdf_values, support):
     """
@@ -65,7 +65,23 @@ def inverse_map_cdf(cdf_values, support):
         cdf_values: CDF values to compute inverse of.
         support: Support of the data.
     """
-    return lambda x: np.interp(x, cdf_values, support)
+    return lambda x: torch.from_numpy(np.interp(x, cdf_values, support))
+
+class GRU(torch.nn.Module):
+    def __init__(self, n_features: int, hidden_size: int = 1):
+        super().__init__()
+        self.gru = torch.nn.GRU(
+            input_size = n_features,
+            hidden_size = hidden_size,
+            batch_first=True
+        )
+        self.linear = torch.nn.Linear(hidden_size, 1)
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        x, _ = self.gru(x)
+        x = x[:,-1,:]
+        x = self.linear(x)
+        return x
+
 
 class CopulaGAN(Copula, GAN):
     """
@@ -74,14 +90,13 @@ class CopulaGAN(Copula, GAN):
     def __init__(
             self,
             generator_deep_layers: list[int] = [32, 32],
-            discriminator_deep_layers: list[int] = [32, 32],
             device: Literal['cpu', 'cuda', 'auto'] = 'auto',
             optimizer: Literal['adam', 'sgd'] = 'adam',
             generator_fake_size: int = 1000,
         ) -> None:
         super().__init__(
             generator_deep_layers,
-            discriminator_deep_layers,
+            [],
             device,
             optimizer,
             generator_fake_size
@@ -105,7 +120,10 @@ class CopulaGAN(Copula, GAN):
             )
             cdf, support = compute_cdf(kde, **kwargs)
             real_U.append(map_cdf(cdf, support)(X[:,i]))
-            pdf = kde.pdf(obs_space, torch.linspace(X[:,i].min(),X[:,i].max(),n_samples))
+            pdf = torch.from_numpy(kde.pdf(
+                torch.linspace(X[:,i].min().item(),X[:,i].max().item(),len(support)),
+                obs_space
+            ).numpy())
             target_kdes.append(kde)
             cdfs.append(cdf)
             real_spaces.append(obs_space)
@@ -113,15 +131,15 @@ class CopulaGAN(Copula, GAN):
 
         self.real_space = zfit.dimension.combine_spaces(*real_spaces)
         self.target_kdes = target_kdes
-        self.target_cdf = torch.stack(cdfs, dim=1)
-        self.target_pdf = torch.stack(target_pdfs, dim=1)
-        self.real_U = torch.stack(real_U, dim=1)
+        self.target_cdf = torch.stack(cdfs, dim=1).float().to(self.device)
+        self.target_pdf = torch.stack(target_pdfs, dim=1).float().to(self.device)
+        self.real_U = torch.stack(real_U, dim=1).float().to(self.device)
 
     def construct_discriminator(
             self,
             n_features: int,
             hidden_size: int = 32,
-        ) -> torch.nn.Sequential:
+        ) -> torch.nn.Module:
         """
         Constructs the discriminator for the GAN. It is a GRU that receives samples from CDFs as input
         and outputs a single value.
@@ -133,13 +151,7 @@ class CopulaGAN(Copula, GAN):
             n_features (int): Number of features for the discriminator.
             hidden_size (int): Hidden size for the GRU. (Default: 32)
         """
-        self.discriminator = torch.nn.Sequential(
-            torch.nn.GRU(
-                input_size = n_features,
-                hidden_size = hidden_size,
-                batch_first=True),
-            torch.nn.Linear(hidden_size, 1)
-        ).to(self.device)
+        self.discriminator = GRU(n_features, hidden_size).to(self.device)
         self.discriminator.apply(self.init_weights)
         return self.discriminator
 
@@ -191,10 +203,10 @@ class CopulaGAN(Copula, GAN):
                 for __ in range(discriminator_iterations):
                     #Train Discriminator
                     rand = torch.rand(batch_size, self.latent_dimension, device=self.device)
-                    fake_U = self.generator(rand)
-                    real_U = self.real_U[torch.randperm(self.real_U.shape[0])[:batch_size]]
-                    real_discriminant, _ = self.discriminator(real_U)
-                    fake_discriminant, _ = self.discriminator(fake_U)
+                    fake_U = self.generator(rand).unsqueeze(0)
+                    real_U = self.real_U[torch.randperm(self.real_U.shape[0], device=self.device)[:batch_size]].unsqueeze(0)
+                    real_discriminant = self.discriminator(real_U)
+                    fake_discriminant = self.discriminator(fake_U)
                     self.discriminator.zero_grad()
                     (
                         self.loss(real_discriminant, torch.ones_like(real_discriminant)) +\
@@ -203,11 +215,10 @@ class CopulaGAN(Copula, GAN):
                     self.discriminator_optimizer.step()
                 self.generator.zero_grad()
                 rand = torch.rand(batch_size, self.latent_dimension, device=self.device)
-                fake_U = self.generator(rand)
-                fake_discriminant, _ = self.discriminator(fake_U)
+                fake_U = self.generator(rand).unsqueeze(0)
+                fake_discriminant = self.discriminator(fake_U)
                 loss = self.loss(fake_discriminant, torch.ones_like(fake_discriminant))
                 loss.backward()
                 self.generator_optimizer.step()
-    
-    def generate(self, n_samples: int, **kws) -> np.ndarray:
+    def generate(self, n_samples: int, **kws) -> torch.Tensor:
         return super().generate(n_samples, **kws)

@@ -219,7 +219,7 @@ class GAN(Module):
         
         return loss_discriminator, loss_generator
         
-    def generate(self, n_samples: int) -> np.ndarray:
+    def sample(self, n_samples: int) -> torch.Tensor:
         """
         Generates samples from the copula.
         
@@ -227,7 +227,8 @@ class GAN(Module):
             n_samples (int): Number of samples to generate.
         
         Returns:
-            np.ndarray: Samples from the copula.
+            torch.Tensor: Samples from the copula.
         """
-        with self.device:
-            return self.generator(torch.randn(n_samples, self.latent_dimension)).detach().cpu().numpy()
+        with torch.no_grad():
+            with self.device:
+                return self.generator(torch.randn(n_samples, self.latent_dimension))
